@@ -1,7 +1,7 @@
 # RuoYi-AVue-Plus
 
 #### Description
-解放后端双手，让页面编写更加简单快速。
+解放后端双手，让增删改查更简单、更轻松。
 
 #### Software Architecture
 Software architecture description
