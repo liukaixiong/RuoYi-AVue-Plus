@@ -1,40 +1,21 @@
-### 改动介绍
-**1. 新增服务注解模块**
-
-![image-20210825134956829](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20210825134956829.png)
-
-这里主要是用来记录远端的服务地址
-
-**2. 引入AVUEJS功能**
-
-[AVUE相关文档](https://avuejs.com/views/doc.html)
-
-> 及其复杂的页面可以考虑使用AVue编写前端代码，目前项目已经集成好了。直接拿来即用.
-
-mock: 用来调试
-
-**3. 新增`ruoyi-avue-client`模块：**
-
-- 基于**AVUE**功能编写,主要负责解析**AVUE**属性的注解并进行加强适配。
-
 ## 运行环境
 
 ### 后端
 
-- JDK
-- redis
+- jdk 1.8+
+- redis 
 - mysql
-- MAVEN
+- maven
 
 ### 前端
 
-- NodeJs
+- nodeJs
 
 **搭建步骤可以参考: [ruoyi文档地址](http://doc.ruoyi.vip/ruoyi/)**
 
 下载下来项目之后：
 
-1. 执行后端脚本 :  sql目录下的脚本，先创建数据库的表环境。
+1. 执行后端脚本 :  [sql](../sql)目录下的脚本，先创建数据库的表环境。
    1. 找到`ruoyi-admin`项目
       1. `application.yml` 回填 Redis的地址
       2. `application-druid.yml` : 回填数据库的地址
@@ -61,6 +42,8 @@ INSERT INTO  `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`
 ```
 
 ## 开始使用
+
+
 
 ### 后端引用
 

@@ -2,12 +2,6 @@
 
 [服务端测试文档](./src/test/README.md)
 
-## 注解相关
-
-都是以`@AVue`开头，结合[AVue的属性文档](https://avuejs.com/views/doc.html)
-
-option -> column -> 中的介绍方可理解。
-
 ## 核心主流程讲解  
 
 >  建议下载源码的时候到`ruoyi-client`的test目录下RuoYiClientTestApplication启动测试应用

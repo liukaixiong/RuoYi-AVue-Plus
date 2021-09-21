@@ -6,7 +6,7 @@ import com.ruoyi.client.annotation.AVueRule;
 import java.lang.annotation.*;
 
 /**
- * 描述: input属性
+ * 描述: 单选框
  *
  * @author liukx
  * @date 2021/8/16 18:51
