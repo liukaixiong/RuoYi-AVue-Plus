@@ -31,6 +31,40 @@ npm run build:stage
 npm run build:prod
 ```
 
+
+
+### tomcat部署
+
+执行上面编译命令之后，会有一个`dist` 文件夹，里面就是打包好的文件
+
+1. 非根目录编译
+
+比如路径为`http://localhost:8080/ry` 的情况，需要关注一下`vue.config.js`文件中的`publicPath` 属性。各环境的配置中参数为`BASE_URL` 。这种情况请填写成`/ry` 。
+
+**如果在tomcat中出现刷新路径404的情况**， 可以参考这个方式 ： 
+
+在比如tomcat的webapps的ry目录下新建`WEB-INF\web.xml`的目录和文件，新建好了之后
+
+`web.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-app_2_5.xsd"
+ id="scplatform" version="2.5">
+	 <display-name>/</display-name><!--/webName/-->
+	 <error-page>
+	 <error-code>404</error-code>
+	 <location>/index.html</location>
+	 </error-page>
+</web-app>
+```
+
+这个方案的思路是遇到404的路径直接跳转到index.html，完美`Vue`解决了单页面跳转的问题。
+
+[若依部署方案](http://doc.ruoyi.vip/ruoyi-vue/document/hjbs.html#%E5%89%8D%E7%AB%AF%E9%83%A8%E7%BD%B2)
+
 ## 代码相关介绍
 
 - src
@@ -47,8 +81,6 @@ npm run build:prod
       - avue-crud-test.vue  // **支持AvueJs的增删改查版本**
       - crud-test.vue  // **支持AVue的通用原生版本**
       - **server-crud.vue // 支持AVue增删改查的服务端版本**
-
-
 
 有相关的调试内容或者增强功能，请根据需要去view的crud中找匹配版本进行调试并且增强。
 

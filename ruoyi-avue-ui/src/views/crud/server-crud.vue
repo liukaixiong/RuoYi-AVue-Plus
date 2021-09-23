@@ -212,43 +212,31 @@ export default window.$crudServerCommon({
   },
   {
     name: 'crud/crud',//模块名字
-    configUrl
-:
-"/avue/crud",
-  // domain:'', // 服务访问根路径
-  // list: 'list',//列表接口名字
-  // update: 'update',//更新接口名字
-  // add: 'add',//新增接口名字
-  // del: 'del',//删除接口名字
-  // rowKey: 'id',//主键
-  // 下面是分页与后端字段属性的适配
-  pageNumber
-:
-'pageNumber',//页码
-  pageTotal
-:
-'total', // 页总数
-  pageSize
-:
-'pageSize',//页数
-  pageData
-:
-'data', // 数据对象的名称
-  res
-:
-(data) => { // 这里设置函数处理
-  // 应对服务接口数据结构不一致的转换
-  // let response = {
-  //   data: data.data,
-  //   total: data.total
-  // }
-  return data;
-},
+    configUrl: "/avue/crud",
+    // domain:'', // 服务访问根路径
+    // list: 'list',//列表接口名字
+    // update: 'update',//更新接口名字
+    // add: 'add',//新增接口名字
+    // del: 'del',//删除接口名字
+    // rowKey: 'id',//主键
+    // 下面是分页与后端字段属性的适配
+    pageNumber: 'pageNumber',//页码
+    pageTotal: 'total', // 页总数
+    pageSize: 'pageSize',//页数
+    pageData: 'data', // 数据对象的名称
+    res: (data) => { // 这里设置函数处理
+                     // 应对服务接口数据结构不一致的转换
+                     // let response = {
+                     //   data: data.data,
+                     //   total: data.total
+                     // }
+      return data;
+    },
 
 //列表的结构
 // total: 'total',//总页数
 // data: 'data'//列表属性
-}
+  }
 )
 </script>
 <style lang="scss" scoped>

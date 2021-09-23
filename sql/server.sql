@@ -10,3 +10,15 @@ CREATE TABLE `sys_server` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+
+-- 服务注册菜单
+INSERT INTO  `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2003, '服务注册', 1, 18, '/server', 'system/server/index', 1, 0, 'C', '0', '0', 'server:index', 'server', 'admin', '2021-08-13 18:48:23', 'admin', '2021-08-13 18:49:38', '');
+
+-- 菜单测试案例
+INSERT INTO  `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2000, '测试案例', 0, 10, 'test', NULL, 1, 0, 'M', '0', '0', '', 'example', 'admin', '2021-08-13 17:49:25', 'admin', '2021-08-15 18:21:37', '');
+
+INSERT INTO `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2008, 'AVUE测试', 2000, 1, 'avue', 'crud/avue-crud-test', 1, 0, 'C', '0', '0', 'test:avue', 'example', 'admin', '2021-08-25 14:19:09', 'admin', '2021-08-25 14:19:53', '');
+INSERT INTO `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2007, '接口配置测试-需启动测试用例', 2000, 15, 'configTest?server=1&group=test-config', 'crud/server-crud', 1, 0, 'C', '0', '0', 'test:config', 'example', 'admin', '2021-08-20 16:03:41', 'admin', '2021-08-20 16:04:36', '');
+INSERT INTO `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2006, '接口测试需启动测试用例', 2000, 13, 'service?server=1&&group=test-route', 'crud/server-crud', 1, 1, 'C', '0', '0', 'test:service', 'example', 'admin', '2021-08-19 17:39:35', 'admin', '2021-08-20 15:42:30', '');
+INSERT INTO `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2005, '固定json参数测试', 2000, 12, 'test4?server=4&&group=tag', 'crud/crud-test', 1, 0, 'C', '0', '0', 'test:tag', 'example', 'admin', '2021-08-15 19:20:23', 'admin', '2021-08-25 10:40:59', '');

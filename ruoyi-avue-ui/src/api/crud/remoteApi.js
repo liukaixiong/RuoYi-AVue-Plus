@@ -25,12 +25,12 @@ export function post(url, param, fnCallback) {
       fnCallback(data);
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {
-    if (jqXHR.status == 0) {
-      options.content = '请求异常，网络连接失败！';
-    } else if (jqXHR.status == 403) {
-      options.content = jqXHR.responseJSON.message;
+    if (jqXHR.status === 0) {
+      self.errorMsg('请求异常，网络连接失败！ -> ' + this.url);
+    } else if (jqXHR.status === 404) {
+      self.errorMsg("请求找不到:" + this.url);
     } else {
-      options.content = "请求异常，状态码：" + jqXHR.status;
+      self.errorMsg("请求异常，状态码：" + jqXHR.status + this.url);
     }
   });
 }
@@ -59,12 +59,12 @@ export function get(url, param, fnCallback) {
       fnCallback(data);
     }
   }).fail(function (jqXHR, textStatus, errorThrown) {
-    if (jqXHR.status == 0) {
-      options.content = '请求异常，网络连接失败！';
-    } else if (jqXHR.status == 403) {
-      options.content = jqXHR.responseJSON.message;
+    if (jqXHR.status === 0) {
+      self.errorMsg('请求异常，网络连接失败！ -> ' + this.url);
+    } else if (jqXHR.status === 404) {
+      self.errorMsg("请求找不到:" + this.url);
     } else {
-      options.content = "请求异常，状态码：" + jqXHR.status;
+      self.errorMsg("请求异常，状态码：" + jqXHR.status + this.url);
     }
   });
 };

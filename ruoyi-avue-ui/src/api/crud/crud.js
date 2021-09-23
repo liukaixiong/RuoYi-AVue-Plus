@@ -66,8 +66,14 @@ function http(config, path, data) {
  * @param serverInfo      domain对象
  */
 export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
-  let domain = serverInfo.domainPath;
 
+  if (!serverInfo) {
+    self.$message.error("找不到对应的服务注册编号 请检查请求路径中的: server=" + pageRouteInfo.server + " 然后去[系统管理->服务注册]中查找是否有该编号!");
+    return;
+  }
+
+  let domain = serverInfo.domainPath;
+  debugger;
   let params = {
     "group": pageRouteInfo.group,
     "acceptToken": serverInfo.acceptToken
@@ -80,13 +86,18 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
 
     // 根据配置文件的信息获取数据
     let responseConfig = clientConfig.res(configObject);
+
+    if (!checkClientConfiguration(responseConfig)) {
+      return;
+    }
+
     let config = responseConfig.config;
+
     let list = config.list;
     // 初始化option部分
     self.$data.option = responseConfig.option;
     self.$data.config = config;
     self.$data.config['domain'] = domain;
-    debugger;
     postRenderData(self.$data);
 
     post(domain + list, {}, (res) => {
@@ -114,9 +125,28 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
   })
 }
 
+/**
+ * 检查客户端的配置是否符合
+ * @param responseConfig
+ */
+function checkClientConfiguration(responseConfig) {
+  if (!responseConfig) {
+    self.msgError("返回结果有误");
+    return false;
+  } else if (!responseConfig.config) {
+    self.msgError("请回填@AVueConfig注解的参数");
+    return false;
+  } else if(!responseConfig.option){
+    self.msgError("页面渲染参数option无效");
+    return false;
+  }
+  return true;
+}
+
+
 function requireMessage(obj, msg) {
   if (!obj) {
-    console.warn(msg)
+    self.msgError(msg);
   }
 }
 

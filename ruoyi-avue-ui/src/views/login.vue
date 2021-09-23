@@ -1,10 +1,10 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">若依后台管理系统</h3>
+      <h3 class="title">{{ title }}</h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
-          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon"/>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -15,7 +15,7 @@
           placeholder="密码"
           @keyup.enter.native="handleLogin"
         >
-          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon"/>
         </el-input>
       </el-form-item>
       <el-form-item prop="code" v-if="captchaOnOff">
@@ -26,7 +26,7 @@
           style="width: 63%"
           @keyup.enter.native="handleLogin"
         >
-          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon"/>
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" class="login-code-img"/>
@@ -57,14 +57,15 @@
 </template>
 
 <script>
-import { getCodeImg } from "@/api/login";
+import {getCodeImg} from "@/api/login";
 import Cookies from "js-cookie";
-import { encrypt, decrypt } from '@/utils/jsencrypt'
+import {encrypt, decrypt} from '@/utils/jsencrypt'
 
 export default {
   name: "Login",
   data() {
     return {
+      title: process.env.VUE_APP_TITLE,
       codeUrl: "",
       cookiePassword: "",
       loginForm: {
@@ -76,12 +77,12 @@ export default {
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", message: "请输入您的账号" }
+          {required: true, trigger: "blur", message: "请输入您的账号"}
         ],
         password: [
-          { required: true, trigger: "blur", message: "请输入您的密码" }
+          {required: true, trigger: "blur", message: "请输入您的密码"}
         ],
-        code: [{ required: true, trigger: "change", message: "请输入验证码" }]
+        code: [{required: true, trigger: "change", message: "请输入验证码"}]
       },
       loading: false,
       // 验证码开关
@@ -93,7 +94,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
       immediate: true
@@ -128,16 +129,17 @@ export default {
         if (valid) {
           this.loading = true;
           if (this.loginForm.rememberMe) {
-            Cookies.set("username", this.loginForm.username, { expires: 30 });
-            Cookies.set("password", encrypt(this.loginForm.password), { expires: 30 });
-            Cookies.set('rememberMe', this.loginForm.rememberMe, { expires: 30 });
+            Cookies.set("username", this.loginForm.username, {expires: 30});
+            Cookies.set("password", encrypt(this.loginForm.password), {expires: 30});
+            Cookies.set('rememberMe', this.loginForm.rememberMe, {expires: 30});
           } else {
             Cookies.remove("username");
             Cookies.remove("password");
             Cookies.remove('rememberMe');
           }
           this.$store.dispatch("Login", this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || "/" }).catch(()=>{});
+            this.$router.push({path: this.redirect || "/"}).catch(() => {
+            });
           }).catch(() => {
             this.loading = false;
             if (this.captchaOnOff) {
@@ -160,6 +162,7 @@ export default {
   background-image: url("../assets/images/login-background.jpg");
   background-size: cover;
 }
+
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
@@ -171,32 +174,39 @@ export default {
   background: #ffffff;
   width: 400px;
   padding: 25px 25px 5px 25px;
+
   .el-input {
     height: 38px;
+
     input {
       height: 38px;
     }
   }
+
   .input-icon {
     height: 39px;
     width: 14px;
     margin-left: 2px;
   }
 }
+
 .login-tip {
   font-size: 13px;
   text-align: center;
   color: #bfbfbf;
 }
+
 .login-code {
   width: 33%;
   height: 38px;
   float: right;
+
   img {
     cursor: pointer;
     vertical-align: middle;
   }
 }
+
 .el-login-footer {
   height: 40px;
   line-height: 40px;
@@ -209,6 +219,7 @@ export default {
   font-size: 12px;
   letter-spacing: 1px;
 }
+
 .login-code-img {
   height: 38px;
 }

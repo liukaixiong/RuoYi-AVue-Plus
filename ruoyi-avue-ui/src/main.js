@@ -84,6 +84,10 @@ Vue.prototype.msgInfo = function (msg) {
   this.$message.info(msg);
 }
 
+window.errorMsg = function (msg) {
+  Vue.prototype.msgError (msg);
+}
+
 // 全局组件挂载
 Vue.component('DictTag', DictTag)
 Vue.component('Pagination', Pagination)
