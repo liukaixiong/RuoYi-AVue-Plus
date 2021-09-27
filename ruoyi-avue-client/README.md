@@ -156,3 +156,26 @@ public interface AVueAttrPostProcess {
 
 
 
+### 3. 拓展类
+
+#### 全局特定注解的默认属性值
+
+由于注解内部定义的字段默认情况是不输出默认值的，怕属性太多引起混乱，仅仅是用户自己指定的属性回填的内容会被输出出来。
+
+为了避免用户对某些注解的默认值频繁填写相同的属性，允许用户定义全局特定注解的默认值，把默认值先注册之后，每次输出都会将默认值回填到json中，当然优先级还是以类中定义的注解内容为最高：
+
+**另外AVue中没有集成进来的属性，也可以作为默认值回填输出。**
+
+`类中注解 > 全局默认注解 > 注解的默认值` 
+
+如果类中没有回填该属性，则看全局默认注解是否配置。
+
+```java
+// 可以在容器触发完成之后，将对应的属性注册到容器中
+Map<String, Object> uploadValue = new LinkedHashMap<>();
+uploadValue.put("drag", true);
+ObjectConfigCacheHelper.getINSTANCE().registerAnnotationValue(AVueUpload.class, uploadValue);
+```
+
+以上是将`AVueUpload` 上传组件的拖拽属性设置为true，这样类中不用定义该注解的属性也能输出到json给前端。
+

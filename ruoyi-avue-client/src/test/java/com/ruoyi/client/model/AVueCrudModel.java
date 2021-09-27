@@ -2,6 +2,7 @@ package com.ruoyi.client.model;
 
 import com.ruoyi.client.annotation.*;
 import com.ruoyi.client.annotation.column.*;
+import com.ruoyi.client.annotation.column.props.AVueUploadPropsHttp;
 import com.ruoyi.client.controller.AVueControllerTest;
 import com.ruoyi.client.enums.CheckStatusEnums;
 import com.ruoyi.client.enums.SexEnums;
@@ -27,7 +28,7 @@ public class AVueCrudModel {
     @AVueInput(prop = "id", label = "主键", addDisplay = false, editDisabled = true, search = true)
     private String id;
 
-    @AVueInput(prop = "username", label = "用户名称", search = true, searchRequired = true)
+    @AVueInput(prop = "username", label = "用户名称", search = true, searchRequired = true, onClick = "testB")
     private String username;
 
     @AVueSelect(prop = "checkStatus", label = "认证状态", dicData = "CheckStatusEnums", search = true)
@@ -59,6 +60,12 @@ public class AVueCrudModel {
 
     @AVueSwitch(prop = "status", label = "状态", dicData = "StatusEnums")
     private int status;
+
+    @AVueUpload(prop = "image", label = "单图上传", listType = "picture-img", action = "/upload", propsHttp = @AVueUploadPropsHttp(res = "single", name = "fileName"))
+    private String image;
+
+    @AVueUpload(prop = "imageList", dataType = "array", listType = "picture-card", label = "单图上传", action = "/upload", propsHttp = @AVueUploadPropsHttp(res = "single", name = "fileName"))
+    private List<String> imageList;
 
     @AVueJson(prop = "dataJson", label = "拓展字段")
     private String dataJson;

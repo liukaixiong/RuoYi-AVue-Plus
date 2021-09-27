@@ -61,21 +61,28 @@ public class DefaultAnnotationHandler implements AVueHandler {
         } else {
             Map<String, Object> updateValueMap = new HashMap<>();
             annotationValueMap.forEach((K, V) -> {
-                Object defaultValue = AnnotationUtils.getDefaultValue(annotation.annotationType(), K);
-                if (V != null && (!V.equals(defaultValue) || K.equals("type"))) {
-                    Class<?> fieldClazz = V.getClass();
-                    if (fieldClazz.isArray() && !fieldClazz.getName().startsWith("[Ljava.lang")) {
-                        Object[] arrayAnnotation = (Object[])V;
-                        if (arrayAnnotation.length > 0) {
-                            List<Map<String, Object>> ruleList = new ArrayList<>();
-                            for (Object annotationObject : arrayAnnotation) {
-                                ruleList.add(getAnnotationValueMap(null, (Annotation)annotationObject));
+                if (V != null) {
+                    Object defaultValue = AnnotationUtils.getDefaultValue(annotation.annotationType(), K);
+                    if (!V.equals(defaultValue) || K.equals("type")) {
+                        Class<?> fieldClazz = V.getClass();
+                        if (fieldClazz.isArray() && !fieldClazz.getName().startsWith("[Ljava.lang")) {
+                            Object[] arrayAnnotation = (Object[])V;
+                            if (arrayAnnotation.length > 0) {
+                                List<Map<String, Object>> ruleList = new ArrayList<>();
+                                for (Object annotationObject : arrayAnnotation) {
+                                    ruleList.add(getAnnotationValueMap(null, (Annotation)annotationObject));
+                                }
+                                updateValueMap.put(K, ruleList);
                             }
-                            updateValueMap.put(K, ruleList);
                         }
-                    } else {
-                        updateValueMap.put(K, V);
+                        // 如果是值是注解内容，那么递归再获取一遍
+                        else if (V instanceof Annotation) {
+                            updateValueMap.put(K, getAnnotationValueMap(null, (Annotation)V));
+                        } else {
+                            updateValueMap.put(K, V);
+                        }
                     }
+
                 }
             });
             return updateValueMap;
@@ -96,5 +103,10 @@ public class DefaultAnnotationHandler implements AVueHandler {
 
     public void addExcludeAnnotationSet(Class<? extends Annotation> annotation) {
         this.excludeAnnotationSet.add(annotation);
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
     }
 }

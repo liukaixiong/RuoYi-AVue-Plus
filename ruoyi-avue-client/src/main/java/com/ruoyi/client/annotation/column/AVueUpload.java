@@ -2,11 +2,12 @@ package com.ruoyi.client.annotation.column;
 
 import com.ruoyi.client.annotation.AVueAttr;
 import com.ruoyi.client.annotation.AVueRule;
+import com.ruoyi.client.annotation.column.props.AVueUploadPropsHttp;
 
 import java.lang.annotation.*;
 
 /**
- * 描述: 级联选择器
+ * 描述: 上传组件
  *
  * @author liukx
  * @date 2021/8/16 18:51
@@ -14,13 +15,103 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface AVueDateRange {
+public @interface AVueUpload {
     /**
      * 展现类型
      *
      * @return
      */
-    String type() default "daterange";
+    String type() default "upload";
+
+    /**
+     * upload时文件类型
+     * 可选值 : String/Array
+     *
+     * @return
+     */
+    String accept() default "";
+
+    /**
+     * 数据类型
+     * string : 数据,号分割
+     * array : 数组的形式传递给后端
+     * 可选值 : string/array
+     *
+     * @return
+     */
+    String dataType() default "";
+
+    /**
+     * 必选参数，上传的地址
+     *
+     * @return
+     */
+    String action();
+
+    /**
+     * 远程的参数配置
+     *
+     * @return
+     */
+    AVueUploadPropsHttp propsHttp();
+
+    /**
+     * 上传文件的大小限制，单位为M,超出回调upload-error函数
+     *
+     * @return
+     */
+    int fileSize() default 0;
+
+    /**
+     * 携带的头部附加参数
+     *
+     * @return
+     */
+    AVueAttr[] headers() default {};
+
+    /**
+     * 最大允许的上传个数
+     *
+     * @return
+     */
+    int limit() default 100;
+
+    /**
+     * 文件类型
+     * 可选值 : text/picture/picture-img/picture-card 分别代表，文本、缩略图、单图、图片组
+     * 默认值 : text
+     *
+     * @return
+     */
+    String listType() default "text";
+
+    /**
+     * 是否显示已上传文件列表
+     *
+     * @return
+     */
+    boolean showFileList() default true;
+
+    /**
+     * 是否支持多选文件
+     *
+     * @return
+     */
+    boolean multiple() default false;
+
+    /**
+     * 上传的加载文本
+     *
+     * @return
+     */
+    String loadText() default "附件上传中，请稍等";
+
+    /**
+     * 是否允许拖拽上传
+     *
+     * @return
+     */
+    boolean drag() default false;
 
     /**
      * 属性名称
@@ -109,21 +200,14 @@ public @interface AVueDateRange {
      */
     boolean display() default false;
 
-    /* ********************************** 表单常用属性 ***************************************** */
-
-    /**
-     * 查询时是否开启范围查询功能
-     *
-     * @return
-     */
-    boolean searchRange() default false;
-
     /**
      * 表格页面是否展示
      *
      * @return
      */
     boolean hide() default false;
+
+    /* ********************************** 表单常用属性 ***************************************** */
 
     /**
      * 表单新增时是否禁止
@@ -158,7 +242,7 @@ public @interface AVueDateRange {
      *
      * @return
      */
-    boolean editDisplay() default false;
+    boolean editDisplay() default true;
 
     /**
      * 表单编辑时是否为查看模式
@@ -177,39 +261,46 @@ public @interface AVueDateRange {
     /* ********************************** ********** ******************************************/
 
     /**
-     * 日期/时间范围开始占位符
+     * 最小行/最小值
      *
      * @return
      */
-    String startPlaceholder() default "";
+    int minRows() default 2;
 
     /**
-     * 日期/时间范围结束占位符
+     * 最大行/最大值
      *
      * @return
      */
-    String endPlaceholder() default "";
+    int maxRows() default 4;
 
     /**
-     * 选择范围时的分隔符
+     * 密码是否可见
      *
      * @return
      */
-    String rangeSeparator() default "";
+    boolean showPassword() default true;
 
     /**
-     * 真实值的时间格式
+     * 是否显示输入字数统计
      *
      * @return
      */
-    String valueFormat() default "";
+    boolean showWordLimit() default true;
 
     /**
-     * 显示值时间格式
+     * 输入框头部图标
      *
      * @return
      */
-    String format() default "";
+    String prefixIcon() default "";
+
+    /**
+     * 输入框尾部图标
+     *
+     * @return
+     */
+    String suffixIcon() default "";
 
     /**
      * 是否作为搜索字段
@@ -247,4 +338,5 @@ public @interface AVueDateRange {
      * @return
      */
     boolean searchRequired() default false;
+
 }

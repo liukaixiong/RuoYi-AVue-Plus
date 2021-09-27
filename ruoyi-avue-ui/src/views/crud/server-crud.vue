@@ -65,7 +65,7 @@
 
 <script>
 
-import * as eventMethod from "@/utils/clickEvent"
+import * as eventMethod from "@/api/crud/event/buttonEvent"
 
 export default window.$crudServerCommon({
     data() {
@@ -225,11 +225,11 @@ export default window.$crudServerCommon({
     pageSize: 'pageSize',//页数
     pageData: 'data', // 数据对象的名称
     res: (data) => { // 这里设置函数处理
-                     // 应对服务接口数据结构不一致的转换
-                     // let response = {
-                     //   data: data.data,
-                     //   total: data.total
-                     // }
+      // 应对服务接口数据结构不一致的转换
+      // let response = {
+      //   data: data.data,
+      //   total: data.total
+      // }
       return data;
     },
 

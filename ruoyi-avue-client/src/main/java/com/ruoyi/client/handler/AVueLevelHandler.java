@@ -19,6 +19,6 @@ public interface AVueLevelHandler extends Ordered {
 
     @Override
     default int getOrder() {
-        return HIGHEST_PRECEDENCE;
+        return LOWEST_PRECEDENCE;
     }
 }

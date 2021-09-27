@@ -171,6 +171,15 @@ public @interface AVueInput {
 
     /* ********************************** ********** ******************************************/
 
+    /********************************** 事件属性 ***********************************/
+    String onClick() default "";
+
+    String onBlur() default "";
+
+    String onFocus() default "";
+
+    String onChange() default "";
+
     /**
      * 最小行/最小值
      *

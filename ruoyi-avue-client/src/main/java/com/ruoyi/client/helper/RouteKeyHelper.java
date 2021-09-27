@@ -28,7 +28,7 @@ public class RouteKeyHelper {
         }
     }
 
-    public Class get(String key){
+    public Class get(String key) {
         return classMap.get(key);
     }
 }

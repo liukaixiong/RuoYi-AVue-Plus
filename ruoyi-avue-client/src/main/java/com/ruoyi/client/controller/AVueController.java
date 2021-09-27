@@ -40,11 +40,16 @@ public class AVueController {
         if (!checkParams(configMappingModel)) {
             return ResponseEntity.badRequest().build();
         }
-
         // 非空判断
         String group = configMappingModel.getGroup();
-        Map<String, Map<String, Object>> parse = handler.parse(RouteKeyHelper.getInstance().get(group));
-        return ResponseEntity.ok(parse);
+        Class clazz = RouteKeyHelper.getInstance().get(group);
+        if (clazz == null) {
+            logger.warn("没有找到AVue对应的模版route-key : " + group);
+            return ResponseEntity.notFound().build();
+        } else {
+            Map<String, Map<String, Object>> parse = handler.parse(clazz);
+            return ResponseEntity.ok(parse);
+        }
     }
 
     /**

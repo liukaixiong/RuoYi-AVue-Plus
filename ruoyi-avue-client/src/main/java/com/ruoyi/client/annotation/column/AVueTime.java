@@ -163,6 +163,12 @@ public @interface AVueTime {
     boolean sortable() default false;
 
     /* ********************************** ********** ******************************************/
+    /**
+     * 查询时是否开启范围查询功能
+     *
+     * @return
+     */
+    boolean searchRange() default false;
 
     /**
      * 日期/时间范围开始占位符

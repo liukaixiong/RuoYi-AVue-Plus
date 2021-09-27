@@ -21,6 +21,7 @@ public @interface AVueDatetime {
      * @return
      */
     String type() default "datetime";
+
     /**
      * 属性名称
      *
@@ -109,11 +110,14 @@ public @interface AVueDatetime {
     boolean display() default false;
 
     /* ********************************** 表单常用属性 ***************************************** */
+
     /**
      * 表格页面是否展示
+     *
      * @return
      */
     boolean hide() default false;
+
     /**
      * 表单新增时是否禁止
      *
@@ -164,6 +168,14 @@ public @interface AVueDatetime {
     boolean sortable() default false;
 
     /* ********************************** ********** ******************************************/
+
+    /**
+     * 查询时是否开启范围查询功能
+     *
+     * @return
+     */
+    boolean searchRange() default false;
+
     /**
      * 日期/时间范围开始占位符
      *
@@ -198,12 +210,14 @@ public @interface AVueDatetime {
      * @return
      */
     String format() default "";
+
     /**
      * 是否作为搜索字段
      *
      * @return
      */
     boolean search() default false;
+
     /**
      * 拓展字段
      *
@@ -219,6 +233,7 @@ public @interface AVueDatetime {
     AVueRule[] rules() default {};
 
     boolean required() default false;
+
     /**
      * 查询的单独校验规则
      *

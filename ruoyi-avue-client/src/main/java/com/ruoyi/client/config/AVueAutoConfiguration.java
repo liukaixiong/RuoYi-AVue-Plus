@@ -4,10 +4,7 @@ import com.ruoyi.client.annotation.AVueGroup;
 import com.ruoyi.client.annotation.column.AVueJson;
 import com.ruoyi.client.config.props.AVueProperties;
 import com.ruoyi.client.controller.AVueController;
-import com.ruoyi.client.handler.impl.DefaultAnnotationHandler;
-import com.ruoyi.client.handler.impl.DynamicAnnotationHandler;
-import com.ruoyi.client.handler.impl.GroupAnnotationHandler;
-import com.ruoyi.client.handler.impl.NewImportComponentsHandler;
+import com.ruoyi.client.handler.impl.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +42,12 @@ public class AVueAutoConfiguration {
     @ConditionalOnMissingBean(value = GroupAnnotationHandler.class)
     public GroupAnnotationHandler groupAnnotationHandler() {
         return new GroupAnnotationHandler();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(value = DefaultAnnotationValueHandler.class)
+    public DefaultAnnotationValueHandler defaultAnnotationValueHandler() {
+        return new DefaultAnnotationValueHandler();
     }
 
     @Bean

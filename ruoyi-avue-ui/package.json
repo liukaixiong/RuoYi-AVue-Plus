@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
+  "name": "ruoyi-avue",
   "version": "3.6.0",
-  "description": "若依AVue管理系统强化版1",
-  "author": "若依",
+  "description": "若依AVue管理系统强化版",
+  "author": "liukaixiong",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -33,7 +33,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+    "url": "https://gitee.com/liukaixiong/RuoYi-AVue-Plus.git"
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",

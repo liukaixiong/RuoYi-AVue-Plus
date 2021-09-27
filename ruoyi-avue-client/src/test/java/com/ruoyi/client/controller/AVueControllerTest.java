@@ -9,14 +9,13 @@ import com.ruoyi.client.enums.StatusEnums;
 import com.ruoyi.client.model.AVueCrudModel;
 import com.ruoyi.client.utils.JsonParseUtils;
 import junit.framework.TestCase;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -51,9 +50,9 @@ public class AVueControllerTest extends TestCase {
             crudModel.setSex((Integer)JMockData.mock(SexEnums.class).getCode());
             crudModel.setStatus((Integer)JMockData.mock(StatusEnums.class).getCode());
             crudModel.setValidDate(JMockData.mock(Date.class));
-//            crudModel.setTimeRange(JMockData.mock(Timestamp.class));
+            //            crudModel.setTimeRange(JMockData.mock(Timestamp.class));
             crudModel.setTime(JMockData.mock(Date.class));
-//            crudModel.setDateRange();
+            //            crudModel.setDateRange();
             crudModel.setUsername(JMockData.mock(String.class));
             crudModels.add(crudModel);
         }
@@ -81,6 +80,21 @@ public class AVueControllerTest extends TestCase {
     public ResponseEntity<Boolean> save(@RequestBody AVueCrudModel body) {
         logger.info("save request : " + JsonParseUtils.toJson(body));
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public ResponseEntity<Map> upload(@RequestParam("file") MultipartFile file) {
+        System.out.println(file);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        Map<String, Object> objResult = new HashMap<>();
+        objResult.put("fileName", file.getOriginalFilename());
+        objResult.put("url", "https://avuejs.com/imgview/224a5a854632ed8bce5287e9a43b1921.jpg");
+        result.put("single", objResult);
+
+        return ResponseEntity.ok(result);
     }
 
     private Integer mockInteger(int min, int max) {

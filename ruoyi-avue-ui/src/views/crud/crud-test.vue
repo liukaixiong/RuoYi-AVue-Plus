@@ -4,6 +4,7 @@
     <h3>个人-固定的JSON参数测试</h3>
     <avue-crud :option="option"
                :page="page"
+               ref="crud"
                :data="data"
                @row-update="updateBefore">
       <!-- https://avuejs.com/crud/crud-btn.html 参考 -->
@@ -17,6 +18,7 @@
       -->
       <template v-if="option.tableRowButtons && option.tableRowButtons.length > 0" slot-scope="{row,index}" slot="menu">
         <span v-for="item in option.tableRowButtons">
+          <el-button type="primary" :disabled="index==0" @click="$refs.crud.rowEdit(row,index)">编辑</el-button>
           <el-button :type="item.type || 'primary'"
                      :icon="item.icon || 'el-icon-edit'"
                      :size="item.size || 'small'"
@@ -73,14 +75,24 @@
 
       </template>
 
+
+      <!--      <div slot="menu" slot-scope="{size,type,row,index}">-->
+      <!--        <el-button :type="type" :size="size" :disabled="index==0" @click="$refs.crud.rowEdit(row,index)">编辑</el-button>-->
+      <!--        <el-button :type="type" :size="size">删除</el-button>-->
+      <!--      </div>-->
+
     </avue-crud>
     <!--    </el-card>-->
+
+
+    <avue-data-rotate :option="rotateOption"></avue-data-rotate>
+
   </div>
 </template>
 
 <script>
 
-import * as eventMethod from "@/utils/clickEvent"
+import * as eventMethod from "@/api/crud/event/buttonEvent"
 // 注册组件
 
 const jsonData = `{
@@ -105,6 +117,20 @@ export default {
     //   debugger;
     //   renderData(_self, _self.$route.query, res.data)
     // });
+
+  },
+  created() {
+    let option = this.option;
+    let column = option.column;
+    let _self = this;
+    // column.forEach((field, index) => {
+    //   if (field['onClick']) {
+    //     field['click'] = _self.btnTestClick;
+    //     delete field['onClick'];
+    //   }
+    // })
+
+    // debugger;
   },
   data() {
     return {
@@ -317,6 +343,26 @@ export default {
             "type": "input"
           },
           {
+            label: "时间范围",
+            prop: 'timerange',
+            type: 'timerange',
+            hide: true,
+            search: true,
+            searchRange: true,
+            defaultTime: "['12:00:00', '08:00:00']",
+            format: 'HH:mm:ss',
+            valueFormat: 'HH:mm:ss',
+            startPlaceholder: '时间开始范围自定义',
+            endPlaceholder: '时间结束范围自定义',
+          }, {
+            label: '日期',
+            prop: 'date2',
+            type: 'datetime',
+            searchSpan: 12,
+            searchRange: true,
+            search: true,
+          },
+          {
             "prop": "username",
             "label": "用户名称",
             "type": "input",
@@ -326,13 +372,14 @@ export default {
               "required": true,
               "message": "用户昵称你得填啊老哥"
             }]
-            ,
+            , "onClick": "btn"
+            , "fieldClick": "btnTestClick"
             // searchRules: [{
             //   required: false,
             //   message: "请输入姓名",
             //   trigger: "blur"
             // }],
-            hide: true
+            // hide: true
           },
           {
             "dicData": [
@@ -464,6 +511,53 @@ export default {
             }
           },
           {
+            label: '照片墙',
+            prop: 'imgUrlList',
+            type: 'upload',
+            span: 24,
+            limit: 2,
+            listType: 'picture-card',
+            tip: '只能上传jpg/png文件，且不超过500kb',
+            loadText: '附件上传中，请稍等',
+            propsHttp: {
+              home: 'https://avuejs.com',
+              res: 'single',
+              name: 'fileName'
+            },
+            action: 'http://127.0.0.1:8765/upload'
+          },
+          {
+            label: '单图',
+            prop: 'imgUrl3',
+            type: 'upload',
+            listType: 'picture-img',
+            // canvasOption: {
+            //   text: 'avue',
+            //   ratio: 0.1
+            // },
+            tip: '只能上传jpg/png用户头像，且不超过500kb',
+            drag: true,
+            propsHttp: {
+              res: 'single',
+              name: 'fileName'
+            },
+            action: 'http://127.0.0.1:8765/upload'
+          },
+          {
+            label: '文本图',
+            prop: 'imgUrlText',
+            type: 'upload',
+            span: 24,
+            listType: 'text',
+            tip: '只能上传jpg/png文件，且不超过500kb',
+            loadText: '附件上传中，请稍等',
+            propsHttp: {
+              res: 'single',
+              name: 'fileName'
+            },
+            action: 'http://127.0.0.1:8765/upload'
+          },
+          {
             "prop": "status",
             "label": "状态",
             "type": "switch"
@@ -488,6 +582,36 @@ export default {
           //   theme: "idea",
           //   height: 120
           // }
+        ]
+      },
+      rotateOption: {
+        span: 8,
+        data: [
+          {
+            click: function (item) {
+              alert(JSON.stringify(item));
+            },
+            count: '150',
+            title: '新订单',
+            icon: 'el-icon-warning',
+            color: 'rgb(49, 180, 141)'
+          }, {
+            click: function (item) {
+              alert(JSON.stringify(item));
+            },
+            count: '53%',
+            title: '跳出率',
+            icon: 'el-icon-view',
+            color: '#00a65a'
+          }, {
+            click: function (item) {
+              alert(JSON.stringify(item));
+            },
+            count: '44',
+            title: '用户注册数',
+            icon: 'el-icon-setting',
+            color: '#f39c12'
+          }
         ]
       }
     };
@@ -562,7 +686,6 @@ export default {
       // }
       debugger;
     }, initJsonValue(name, value) {
-      debugger;
       if (value) {
         this.jsonFormat(name);
       }
@@ -590,6 +713,9 @@ export default {
       }
 
       return val;
+    }, btnTestClick(value, column) {
+      this.$message.success('click事件查看控制台')
+      console.log('点击事件', value, column)
     }
   }
 }

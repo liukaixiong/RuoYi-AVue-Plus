@@ -1,5 +1,7 @@
 import {post} from './remoteApi'
 import page from '@/const/page.js'
+import eventConfig from './on-config';
+import * as rowClickEvent from './event/rowClickEvent';
 
 /**
  * 默认的列表查询请求
@@ -73,7 +75,6 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
   }
 
   let domain = serverInfo.domainPath;
-  debugger;
   let params = {
     "group": pageRouteInfo.group,
     "acceptToken": serverInfo.acceptToken
@@ -136,7 +137,7 @@ function checkClientConfiguration(responseConfig) {
   } else if (!responseConfig.config) {
     self.msgError("请回填@AVueConfig注解的参数");
     return false;
-  } else if(!responseConfig.option){
+  } else if (!responseConfig.option) {
     self.msgError("页面渲染参数option无效");
     return false;
   }
@@ -161,15 +162,30 @@ function postRenderData(aVueData) {
   function processColumns(columns) {
     for (let i = 0; i < columns.length; i++) {
       let column = columns[i];
+      // 处理domain路径补全的字段
+      let domainElement = eventConfig.option.column.domain[column.type];
+      if (domainElement) {
+        for (let j = 0; j < domainElement.length; j++) {
+          completionDomainUrl(aVueData, column, domainElement[j]);
+        }
+      }
 
-      if (column.type === 'select') {
-        handlerSelectColumn(aVueData, i, column);
-      } else if (column.type === 'dynamic') {
+      // 行事件补充字段处理
+      let rowEventList = eventConfig.option.column.event;
+
+      if (rowEventList) {
+        for (let rowEvent in rowEventList) {
+          let columnValue = column[rowEvent];
+          if (columnValue) {
+            column[rowEventList[rowEvent]] = rowClickEvent[columnValue];
+          }
+        }
+      }
+      if (column.type === 'dynamic') {
         let childrenList = columns[i].children;
         if (childrenList.column) {
           processColumns(childrenList.column);
         }
-
       }
     }
   }
@@ -177,11 +193,40 @@ function postRenderData(aVueData) {
   processColumns(columns);
 }
 
+/**
+ * 处理select的类型的组件值
+ * @param aVueData
+ * @param index
+ * @param column
+ */
 function handlerSelectColumn(aVueData, index, column) {
   let dicUrl = column.dicUrl;
+  // 补全domain
+  completionDomainUrl(aVueData, column, 'dicUrl');
+}
+
+/**
+ * 处理upload的类型组件值
+ * @param aVueData
+ * @param index
+ * @param column
+ */
+function handlerUploadColumn(aVueData, index, column) {
+  completionDomainUrl(aVueData, column, 'action');
+}
+
+/**
+ * 默认补全domain对象
+ * @param aVueData      组件对象
+ * @param column
+ * @param name
+ */
+function completionDomainUrl(aVueData, column, name) {
   // 如果非http的url默认按照domain的前缀访问
-  if (dicUrl && !dicUrl.startsWith("http")) {
+  let columnObject = column[name];
+  if (columnObject && !columnObject.startsWith("http")) {
     let domain = aVueData.config['domain'];
-    column.dicUrl = domain + "/" + dicUrl;
+    column[name] = domain + "/" + columnObject;
   }
 }
+
