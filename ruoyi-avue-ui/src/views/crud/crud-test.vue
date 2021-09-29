@@ -1,7 +1,7 @@
 <template>
   <div class="basic-container">
     <!--    <el-card class="basic-container__card">-->
-    <h3>个人-固定的JSON参数测试</h3>
+    <h3>固定的JSON参数测试</h3>
     <avue-crud :option="option"
                :page="page"
                ref="crud"
@@ -18,8 +18,8 @@
       -->
       <template v-if="option.tableRowButtons && option.tableRowButtons.length > 0" slot-scope="{row,index}" slot="menu">
         <span v-for="item in option.tableRowButtons">
-          <el-button type="primary" :disabled="index==0" @click="$refs.crud.rowEdit(row,index)">编辑</el-button>
-          <el-button :type="item.type || 'primary'"
+<!--          <el-button type="primary" :disabled="index==0" @click="$refs.crud.rowEdit(row,index)">编辑</el-button>-->
+          <el-button :type="item.type || 'text'"
                      :icon="item.icon || 'el-icon-edit'"
                      :size="item.size || 'small'"
                      plain
@@ -31,7 +31,7 @@
       <template v-if="option.tableTopLeftButtons && option.tableTopLeftButtons.length>0" slot-scope="{row,index}"
                 slot="menuLeft">
         <span v-for="item in option.tableTopLeftButtons">
-          <el-button :type="item.type || 'primary'"
+          <el-button :type="item.type || 'text'"
                      :icon="item.icon || 'el-icon-edit'"
                      :size="item.size || 'small'"
                      @click="btnClick(item,row,index)">{{ item.btnName }}
@@ -42,7 +42,7 @@
       <template v-if="option.tableTopRightButtons && option.tableTopRightButtons.length > 0" slot-scope="{row,index}"
                 slot="menuRight">
         <span v-for="item in option.tableTopRightButtons">
-          <el-button :type="item.type || 'primary'"
+          <el-button :type="item.type || 'text'"
                      :icon="item.icon || 'el-icon-edit'"
                      :size="item.size || 'small'"
                      plain
@@ -74,18 +74,17 @@
       </span>
 
       </template>
-
-
-      <!--      <div slot="menu" slot-scope="{size,type,row,index}">-->
-      <!--        <el-button :type="type" :size="size" :disabled="index==0" @click="$refs.crud.rowEdit(row,index)">编辑</el-button>-->
-      <!--        <el-button :type="type" :size="size">删除</el-button>-->
-      <!--      </div>-->
-
     </avue-crud>
-    <!--    </el-card>-->
 
+    <avue-dialog ref="avueDialogForm" :dialog-option="dialogConfig.dialogOption"
+                 :show-dialog-props="dialogConfig.showDialogProps"
+                 :form-option="dialogConfig.formOption" :object-data="dialogConfig.objectData"
+                 @submit="testDialogClickSubmit" @closeDialog="testDialogClickClose" @resetForm="testDialogResetForm">
+    </avue-dialog>
 
-    <avue-data-rotate :option="rotateOption"></avue-data-rotate>
+    <!--    <avue-data-rotate :option="rotateOption">-->
+
+    <!--    </avue-data-rotate>-->
 
   </div>
 </template>
@@ -93,6 +92,8 @@
 <script>
 
 import * as eventMethod from "@/api/crud/event/buttonEvent"
+import aVueDialog from "./avue-dialog"
+import dialogSubmitEvent from "@/api/crud/event/dialogSubmitEvent"
 // 注册组件
 
 const jsonData = `{
@@ -110,37 +111,36 @@ const jsonData = `{
 
 export default {
   beforeCreate() {
-    // let _self = this;
-    // console.log("页面初始化");
-    // let query = _self.$route.query;
-    // getServerObjectApi(query.server).then((res) => {
-    //   debugger;
-    //   renderData(_self, _self.$route.query, res.data)
-    // });
 
+  },
+  components: {
+    'avue-dialog': aVueDialog
   },
   created() {
     let option = this.option;
     let column = option.column;
     let _self = this;
-    // column.forEach((field, index) => {
-    //   if (field['onClick']) {
-    //     field['click'] = _self.btnTestClick;
-    //     delete field['onClick'];
-    //   }
-    // })
 
-    // debugger;
   },
   data() {
     return {
       jsonTemp: "",
       jsonStr: jsonData,
+      dialogConfig: {
+        config: {},
+        showDialogProps: false,
+        formOption: {},
+        objectData: {},
+        dialogOption: {}
+      },
       "config": {
         "save": "/liukx/update",
         "update": "/liukx/update",
         "list": "/liukx/list",
-        "domain": "http://127.0.0.1:8765"
+        "domain": "http://127.0.0.1:8765",
+        acceptToken: "abc12345",
+        successField: "success",
+        successKeyword: "true"
       },
       "data": [
         {
@@ -310,30 +310,58 @@ export default {
           "dataJson",
           "extJson"
         ],
-        tableRowButtons: [{
-          btnName: '行按钮1',
-          methodName: 'testA',
-          type: "success",
-          icon: "el-icon-check",
-          size: "mini"
-        }, {
-          btnName: '行按钮2',
-          methodName: 'testB'
-        }],
+        tableRowButtons: [
+          {
+            btnName: '行按钮1',
+            methodName: 'testA',
+            type: "text",
+            icon: "el-icon-check",
+            size: "mini"
+          },
+          {
+            btnName: '行按钮2',
+            methodName: 'testB'
+          },
+          {
+            btnName: '确认按钮',
+            methodName: 'confirmClickRemoteApi',
+            type: "text",
+            icon: "el-icon-check",
+            size: "mini",
+            attrExt: {
+              title: '小心点喔,你确定要点击吗?有惊喜喔!',
+              url: '/test/abc'
+            }
+          },
+          {
+            btnName: '弹层表单按钮',
+            methodName: 'openWindowJsonRemote',
+            type: "text",
+            icon: "el-icon-check",
+            size: "mini",
+            attrExt: {
+              group: 'test-config',
+              url: '/avue/crud',
+              submitUrl: '/test/body'
+            }
+          }],
         tableTopLeftButtons: [{
           btnName: '左上角1',
           methodName: 'testA'
-        }, {
-          btnName: '左上角2',
-          methodName: 'testB'
-        }],
-        tableTopRightButtons: [{
-          btnName: '右上角1',
-          methodName: 'testA'
-        }, {
-          btnName: '右上角2',
-          methodName: 'testB'
-        }],
+        },
+          {
+            btnName: '左上角2',
+            methodName: 'testB'
+          }],
+        tableTopRightButtons: [
+          {
+            btnName: '右上角1',
+            methodName: 'testA'
+          },
+          {
+            btnName: '右上角2',
+            methodName: 'testB'
+          }],
         "column": [
           {
             "addDisplay": true,
@@ -672,7 +700,8 @@ export default {
     },
     getSlotName(item) {
       return item + "Form";
-    }, onJsonChange(name, value) {
+    }
+    , onJsonChange(name, value) {
       this.jsonTemp = value;
 
       // let jsonObject = this.$refs['editor'];
@@ -685,11 +714,13 @@ export default {
       //   }
       // }
       debugger;
-    }, initJsonValue(name, value) {
+    }
+    , initJsonValue(name, value) {
       if (value) {
         this.jsonFormat(name);
       }
-    }, getJsonString(value) {
+    }
+    , getJsonString(value) {
       if (!value) {
         return "";
       }
@@ -697,7 +728,8 @@ export default {
         return JSON.stringify(value);
       }
       return value;
-    }, jsonFormat(name) {
+    },
+    jsonFormat(name) {
       var self = this;
       let jsonObject = self.$refs['editor'];
       for (let i = 0; i < jsonObject.length; i++) {
@@ -707,15 +739,32 @@ export default {
         }
       }
       debugger;
-    }, getTestJsonValue(val) {
+    },
+    getTestJsonValue(val) {
       if (val) {
         debugger;
       }
 
       return val;
-    }, btnTestClick(value, column) {
+    },
+
+    openDialog() {
+      this.dialogConfig.showDialogProps = true;
+    },
+    closeDialog() {
+      this.dialogConfig.showDialogProps = false;
+    },
+    btnTestClick(value, column) {
       this.$message.success('click事件查看控制台')
       console.log('点击事件', value, column)
+    },
+    testDialogClickSubmit(row, hide) {
+      dialogSubmitEvent[this.dialogConfig.config["submitEventName"] || 'defaultSubmit'](this, row, hide);
+    },
+    testDialogClickClose() {
+      this.closeDialog();
+    },
+    testDialogResetForm() {
     }
   }
 }

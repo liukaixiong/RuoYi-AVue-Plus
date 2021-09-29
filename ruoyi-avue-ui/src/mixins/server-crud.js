@@ -187,8 +187,14 @@ export default (app, clientOption = {}) => {
                 this.getList();
             },
             getOption(key) {
-                let _self = this;
                 return this.option[key] || clientOption[key];
+            },
+            getConfig(key, defaultValue) {
+                return this.config[key] || defaultValue;
+            },
+            getPage(key) {
+                debugger;
+                return this.page[key] || clientOption[key];
             }
             /**
              * 获取符合返回结果参数的配置
@@ -196,7 +202,7 @@ export default (app, clientOption = {}) => {
              * @returns {*}
              */
             , getRootData(res) {
-                let root = this.getOption(page.pageRoot);
+                let root = this.getPage(page.pageRoot);
                 let rootResponse;
                 if (root) {
                     if (root.indexOf(".") > 0) {

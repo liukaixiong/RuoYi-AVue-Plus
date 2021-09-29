@@ -26,7 +26,9 @@ public class GroupAnnotationHandler extends DefaultAnnotationHandler {
     @Override
     public void handler(AVueAttrLevel level, AnnotatedElement element, Annotation annotation,
         Map<String, Object> levelMap) {
+
         Class<?> type = ((Field)element).getType();
+
         Map<String, Object> handler = super.handler(level, element, annotation);
 
         Map<String, Map<String, Object>> clazzAnnotationMap = annotationHandler.parse(type);

@@ -16,27 +16,6 @@ public @interface AVueFromOption {
     /** -------------------------------- 非公共属性 -------------------------------------------------- **/
 
     /**
-     * 接口的消息字段
-     *
-     * @return
-     */
-    String messageField() default "";
-
-    /**
-     * 接口的标识成功的字段名称
-     *
-     * @return
-     */
-    String successField() default "";
-
-    /**
-     * 接口的成功关键字
-     *
-     * @return
-     */
-    String successKeyword() default "";
-
-    /**
      * 回车按键触发提交表单
      *
      * @return

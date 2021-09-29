@@ -1,4 +1,4 @@
-import {post} from './remoteApi'
+import _remote from './remoteApi'
 import page from '@/const/page.js'
 import eventConfig from './on-config';
 import * as rowClickEvent from './event/rowClickEvent';
@@ -46,7 +46,7 @@ function http(config, path, data) {
   let domain = config.domain;
   let url = domain + path;
   return new Promise((resolve, reject) => {
-    post(url, data, (res) => {
+    _remote.post(url, data, (res) => {
       resolve(res);
     })
   }).catch(error => {
@@ -83,16 +83,23 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
   let configUrl = clientConfig.configUrl || "/crud/config"
 
   // 拿到配置文件option
-  post(domain + configUrl, params, (configObject) => {
+  _remote.post(domain + configUrl, params, (configObject) => {
 
     // 根据配置文件的信息获取数据
     let responseConfig = clientConfig.res(configObject);
 
-    if (!checkClientConfiguration(responseConfig)) {
+    if (!checkClientConfiguration(self, responseConfig)) {
       return;
     }
 
     let config = responseConfig.config;
+    let responsePage = responseConfig.page;
+
+    if (responsePage) {
+      Object.keys(responsePage).forEach(function (key) {
+        self.$data.page["_" + key] = responsePage[key];
+      });
+    }
 
     let list = config.list;
     // 初始化option部分
@@ -101,25 +108,25 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
     self.$data.config['domain'] = domain;
     postRenderData(self.$data);
 
-    post(domain + list, {}, (res) => {
+    _remote.post(domain + list, {}, (res) => {
       // 初始化data部分,先确认数据的根路径
       let rootResponse = self.getRootData(res);
-      requireMessage(rootResponse, "参数不能为空,否则渲染不出页面，参数可以参考@AVueTableOption的page前缀,确定数据的分页根路径")
+      requireMessage(self, rootResponse, "参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀,确定数据的分页根路径")
 
-      self.$data['data'] = rootResponse[self.getOption(page.pageData) || 'data'];
+      self.$data['data'] = rootResponse[self.getPage(page.pageData || 'data')];
 
-      requireMessage(self.$data['data'], page.pageData + "参数不能为空,否则渲染不出页面，参数可以参考@AVueTableOption的page前缀")
+      requireMessage(self, self.$data['data'], "page.pageData 参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀")
 
       // 初始化page部分
       let pageObject = {
-        pageSize: rootResponse[self.getOption(page.pageSize) || 'pageSize'],
-        pagerCount: rootResponse[self.getOption(page.pagerCount) || 'pagerCount'],
-        total: rootResponse[self.getOption(page.pageTotal) || 'total']
+        pageSize: rootResponse[self.getPage(page.pageSize) || 'pageSize'],
+        pagerCount: rootResponse[self.getPage(page.pagerCount) || 'pagerCount'],
+        total: rootResponse[self.getPage(page.pageTotal) || 'total']
       }
 
-      requireMessage(pageObject.pageSize, page.pageSize + "参数不能为空,否则渲染不出页面，参数可以参考@AVueTableOption的page前缀")
+      requireMessage(self, pageObject.pageSize, "page.pageSize 参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀")
 
-      requireMessage(pageObject.total, page.pageTotal + "参数不能为空,否则渲染不出页面，参数可以参考@AVueTableOption的page前缀")
+      requireMessage(self, pageObject.total, "page.pageTotal 参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀")
 
       self.$data.page = pageObject;
     })
@@ -130,7 +137,7 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
  * 检查客户端的配置是否符合
  * @param responseConfig
  */
-function checkClientConfiguration(responseConfig) {
+function checkClientConfiguration(self, responseConfig) {
   if (!responseConfig) {
     self.msgError("返回结果有误");
     return false;
@@ -145,9 +152,10 @@ function checkClientConfiguration(responseConfig) {
 }
 
 
-function requireMessage(obj, msg) {
+function requireMessage(self, obj, msg) {
   if (!obj) {
     self.msgError(msg);
+    console.log(msg)
   }
 }
 

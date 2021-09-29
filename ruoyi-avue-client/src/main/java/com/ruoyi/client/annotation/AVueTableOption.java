@@ -14,41 +14,6 @@ import java.lang.annotation.*;
 public @interface AVueTableOption {
 
     /**
-     * 页面根路径,多层级可以用.号分割
-     *
-     * @return
-     */
-    String pageRoot() default "";
-
-    /**
-     * 分页 - 页码的属性名称
-     *
-     * @return
-     */
-    String pageNumber() default "pageNumber";
-
-    /**
-     * 分页 - 每页大小的属性名称
-     *
-     * @return
-     */
-    String pageSize() default "pageSize";
-
-    /**
-     * 分页 - 页总数的名字
-     *
-     * @return
-     */
-    String pageTotal() default "total";
-
-    /**
-     * 分页 - 数据总数的名称
-     *
-     * @return
-     */
-    String pageData() default "data";
-
-    /**
      * 表格头部表格
      *
      * @return

@@ -19,26 +19,26 @@ import com.ruoyi.client.controller.AVueConfigControllerTest;
  */
 @AVueRouteKey(groupKey = "test-config")
 @AVueTableOption(title = "这是一个测试")
-@AVueConfig(list = AVueConfigControllerTest.LIST_URL, update = AVueConfigControllerTest.UPDATE_URL, save = AVueConfigControllerTest.UPDATE_URL)
+@AVueConfig(list = AVueConfigControllerTest.LIST_URL, update = AVueConfigControllerTest.UPDATE_URL, save = AVueConfigControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
 public class AVueSimpleModel {
 
-    @AVueInput(prop = "id", label = "主键", addDisplay = false,row = true, editDisabled = true, search = true)
+    @AVueInput(prop = "id", label = "主键", addDisplay = false, row = true, editDisabled = true, search = true)
     private String id;
 
-    @AVueInput(prop = "configGroup", label = "组名称", search = true,row = true, rules = {
+    @AVueInput(prop = "configGroup", label = "组名称", search = true, row = true, rules = {
         @AVueRule(required = true, message = "组名称要填咧"), @AVueRule(min = 5, max = 10, message = "我跟你讲最小5个,最大10个.")})
     private String configGroup;
 
-    @AVueInput(prop = "configName", label = "配置名称", search = true, required = true,row = true)
+    @AVueInput(prop = "configName", label = "配置名称", search = true, required = true, row = true)
     private String configName;
 
-    @AVueSelect(prop = "configCode", label = "配置值", dicData = "StatusEnums", search = true, required = true,row = true)
+    @AVueSelect(prop = "configCode", label = "配置值", dicData = "StatusEnums", search = true, required = true, row = true)
     private String configCode;
 
-    @AVueNumber(prop = "validDay", label = "有效天数", search = true, required = true,row = true)
+    @AVueNumber(prop = "validDay", label = "有效天数", search = true, required = true, row = true)
     private Integer validDay;
 
-    @AVueSwitch(prop = "status", label = "状态", dicData = "StatusEnums",row = true)
+    @AVueSwitch(prop = "status", label = "状态", dicData = "StatusEnums", row = true)
     private int status;
 
     public String getId() {

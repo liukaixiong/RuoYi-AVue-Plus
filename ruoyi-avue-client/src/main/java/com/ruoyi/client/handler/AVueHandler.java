@@ -26,6 +26,18 @@ public interface AVueHandler extends AVueLevelHandler {
     public Map<String, Object> handler(AVueAttrLevel leve, AnnotatedElement element, Annotation annotation);
 
     /**
+     * 处理当前字段所携带的注解器
+     *
+     * @param leve
+     * @param element
+     * @param annotation
+     * @return
+     */
+    default Map<String, Object> handler(AVueAttrLevel leve, AnnotatedElement element, Annotation[] annotation) {
+        return null;
+    }
+
+    /**
      * 处理当前字段所携带的处理器
      *
      * @param level      层级

@@ -1,12 +1,16 @@
 import $ from 'jquery'
 
+function api(url, method, param, fnCallback) {
+  this[method](url, param, fnCallback);
+}
+
 /**
  * POST请求
  * @param url
  * @param param
  * @param fnCallback
  */
-export function post(url, param, fnCallback) {
+function post(url, param, fnCallback) {
   let options = {};
   $.ajax({
     url: url,
@@ -41,7 +45,7 @@ export function post(url, param, fnCallback) {
  * @param param
  * @param fnCallback
  */
-export function get(url, param, fnCallback) {
+function get(url, param, fnCallback) {
   $.ajax({
     url: url,
     type: "GET",
@@ -67,4 +71,10 @@ export function get(url, param, fnCallback) {
       self.errorMsg("请求异常，状态码：" + jqXHR.status + this.url);
     }
   });
+};
+
+export default {
+  post,
+  get,
+  api
 };

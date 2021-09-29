@@ -20,7 +20,7 @@ public @interface AVueRate {
      *
      * @return
      */
-    String type() default "radio";
+    String type() default "rate";
     /**
      * 属性名称
      *

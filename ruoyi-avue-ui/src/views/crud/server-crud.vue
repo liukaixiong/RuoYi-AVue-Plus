@@ -3,14 +3,15 @@
     <avue-crud v-bind="bindVal"
                v-on="onEvent"
                v-model="form"
+               ref="crud"
                :page.sync="page"
     >
 
       <template is="option.tableRowButtons && option.tableRowButtons.length > 0" slot-scope="{row,index}" slot="menu">
         <span v-for="item in option.tableRowButtons">
-          <el-button :type="item.type || 'primary'"
+          <el-button :type="item.type || 'text'"
                      :icon="item.icon || 'el-icon-edit'"
-                     :size="item.size || 'small'"
+                     :size="item.size || 'mini'"
                      plain
                      @click="btnClick(item,row,index)">{{ item.btnName }}
           </el-button>
@@ -66,6 +67,7 @@
 <script>
 
 import * as eventMethod from "@/api/crud/event/buttonEvent"
+import crudUtil from "@/utils/server-crud"
 
 export default window.$crudServerCommon({
     data() {
@@ -93,7 +95,12 @@ export default window.$crudServerCommon({
       },
       //新增后操作方法
       addAfter(row, done, loading, data) {
-        this.processDML(data, done, loading);
+        // this.processDML(data, done, loading);
+        if (crudUtil.processDMLResponse(this, data)) {
+          done();
+        } else {
+          loading();
+        }
       },
 
       //修改前操作方法
@@ -106,7 +113,12 @@ export default window.$crudServerCommon({
 
       //修改后操作方法
       updateAfter(row, index, done, loading, data) {
-        this.processDML(data, done, loading);
+        // this.processDML(data, done, loading);
+        if (crudUtil.processDMLResponse(this, data)) {
+          done();
+        } else {
+          loading();
+        }
       },
 
       // //删除前操作方法
@@ -187,26 +199,6 @@ export default window.$crudServerCommon({
        */
       componentsBefore(form, done, loading) {
         return this.jsonComponents(form, done, loading);
-      },
-      /**
-       * 执行增删改的统一操作
-       * @param data
-       * @param done
-       * @param loading
-       */
-      processDML(data, done, loading) {
-        let successField = this.option['successField'];
-        let successKeyword = this.option['successKeyword'];
-        let successValue = data[successField];
-
-        if (successValue && successValue + '' === successKeyword) {
-          this.$message.success('操作成功');
-          done();
-        } else {
-          let messageField = this.option['messageField'];
-          this.$message.success(messageField);
-          loading();
-        }
       }
     }
   },

@@ -19,10 +19,13 @@ import java.util.List;
  */
 @AVueRouteKey(groupKey = "test-route")
 @AVueTableOption(title = "这是一个测试", dialogDrag = true)
-@AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL)
+@AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
+// 设置后台接口调用之后成功或者失败的结构模型
 @AVueEventButtons(tableRowButtons = {@AVueClickButton(methodName = "testA", btnName = "测试按钮A"),
-    @AVueClickButton(methodName = "testB", btnName = "测试按钮B")}, tableTopLeftButtons = {
-    @AVueClickButton(methodName = "testA", btnName = "测试按钮C")})
+    @AVueClickButton(methodName = "testB", btnName = "测试按钮B"),
+    @AVueClickButton(methodName = "confirmClickRemoteApi", btnName = "确认按钮", attrExt = {
+        @AVueAttr(name = "title", value = "小伙子，你确定吗？有惊喜喔!"),
+        @AVueAttr(name = "url", value = AVueControllerTest.BODY_URL)})})
 public class AVueCrudModel {
 
     @AVueInput(prop = "id", label = "主键", addDisplay = false, editDisabled = true, search = true)

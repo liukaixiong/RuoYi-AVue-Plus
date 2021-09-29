@@ -38,6 +38,7 @@ public class AVueAutoConfiguration {
         return new DynamicAnnotationHandler();
     }
 
+
     @Bean
     @ConditionalOnMissingBean(value = GroupAnnotationHandler.class)
     public GroupAnnotationHandler groupAnnotationHandler() {

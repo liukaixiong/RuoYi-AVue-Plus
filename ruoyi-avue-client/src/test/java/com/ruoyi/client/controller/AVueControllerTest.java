@@ -30,10 +30,13 @@ public class AVueControllerTest extends TestCase {
     public static final String LIST_URL = "/liukx/list";
     public static final String UPDATE_URL = "/liukx/update";
     public static final String SAVE_URL = "/liukx/save";
+    public static final String BODY_URL = "/test/body";
 
     @RequestMapping(value = LIST_URL, method = RequestMethod.POST, produces = {APPLICATION_JSON_VALUE, HAL_MEDIA_TYPE})
     @ResponseBody
-    public ResponseEntity<Object> list(@RequestBody AVueCrudModel body) {
+    public ResponseEntity<Object> list(
+        @RequestBody
+            AVueCrudModel body) {
         logger.info("list request : " + JsonParseUtils.toJson(body));
 
         List<AVueCrudModel> crudModels = new ArrayList<>();
@@ -70,31 +73,60 @@ public class AVueControllerTest extends TestCase {
     @RequestMapping(value = UPDATE_URL, method = RequestMethod.POST, produces = {APPLICATION_JSON_VALUE,
         HAL_MEDIA_TYPE})
     @ResponseBody
-    public ResponseEntity<Boolean> update(@RequestBody AVueCrudModel body) {
+    public ResponseEntity update(
+        @RequestBody
+            AVueCrudModel body) {
         logger.info("update request : " + JsonParseUtils.toJson(body));
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(ok(null));
     }
 
     @RequestMapping(value = SAVE_URL, method = RequestMethod.POST, produces = {APPLICATION_JSON_VALUE, HAL_MEDIA_TYPE})
     @ResponseBody
-    public ResponseEntity<Boolean> save(@RequestBody AVueCrudModel body) {
+    public ResponseEntity save(
+        @RequestBody
+            AVueCrudModel body) {
         logger.info("save request : " + JsonParseUtils.toJson(body));
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(ok(null));
     }
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<Map> upload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map> upload(
+        @RequestParam("file")
+            MultipartFile file) {
         System.out.println(file);
-
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
         Map<String, Object> objResult = new HashMap<>();
         objResult.put("fileName", file.getOriginalFilename());
         objResult.put("url", "https://avuejs.com/imgview/224a5a854632ed8bce5287e9a43b1921.jpg");
         result.put("single", objResult);
-
         return ResponseEntity.ok(result);
+    }
+
+    public Map<String, Object> ok(Object obj) {
+        return result(true, null, obj);
+    }
+
+    private Map<String, Object> result(boolean flag, String message, Object obj) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("success", true);
+        resultMap.put("message", message);
+        resultMap.put("data", obj);
+        return resultMap;
+    }
+
+    public Map<String, Object> no(String message) {
+        return result(false, message, null);
+    }
+
+    @PostMapping(BODY_URL)
+    @ResponseBody
+    public ResponseEntity testBody(
+        @RequestBody
+            Map<String, Object> request) {
+        logger.info("后台请求到的数据: " + JsonParseUtils.toJson(request));
+        return ResponseEntity.ok(ok(null));
     }
 
     private Integer mockInteger(int min, int max) {

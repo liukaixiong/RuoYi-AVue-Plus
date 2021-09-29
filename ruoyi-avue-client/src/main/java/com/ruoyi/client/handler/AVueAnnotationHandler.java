@@ -48,8 +48,8 @@ public class AVueAnnotationHandler implements InitializingBean {
             String keyName = aVueAttrLevel.getKeyName();
 
             // 这里应该是个List
-            Map<String, Object> handlerResult = handlerHelper.handler(aVueAttrLevel, clazz, declaredAnnotation);
 
+            Map<String, Object> handlerResult = handlerHelper.handler(aVueAttrLevel, clazz, declaredAnnotation);
             if (handlerResult.size() > 0) {
 
                 attrPostProcessHelper.handler(aVueAttrLevel, clazz, handlerResult);
