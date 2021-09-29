@@ -95,6 +95,7 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
     let config = responseConfig.config;
     let responsePage = responseConfig.page;
 
+    // todo 修复page的路径不匹配
     if (responsePage) {
       Object.keys(responsePage).forEach(function (key) {
         self.$data.page["_" + key] = responsePage[key];
