@@ -90,8 +90,8 @@ export default (app, clientOption = {}) => {
                         // } else {
                         //     data = res.data.data
                         // }
-                        this.page.total = data[this.getOption(page.pageTotal) || 'total'];
-                        this.data = data[this.getOption(page.pageData) || 'data'];
+                        this.page.total = data[this.getPageInfo(page.pageTotal) || 'total'];
+                        this.data = data[this.getPageInfo(page.pageData) || 'data'];
                         if (this.listAfter) {
                             this.listAfter(data)
                         } else {
@@ -192,9 +192,8 @@ export default (app, clientOption = {}) => {
             getConfig(key, defaultValue) {
                 return this.config[key] || defaultValue;
             },
-            getPage(key) {
-                debugger;
-                return this.page[key] || clientOption[key];
+            getPageInfo(key) {
+                return this.page.info && this.page.info[key] || clientOption[key];
             }
             /**
              * 获取符合返回结果参数的配置
@@ -202,7 +201,7 @@ export default (app, clientOption = {}) => {
              * @returns {*}
              */
             , getRootData(res) {
-                let root = this.getPage(page.pageRoot);
+                let root = this.getPageInfo(page.pageRoot);
                 let rootResponse;
                 if (root) {
                     if (root.indexOf(".") > 0) {

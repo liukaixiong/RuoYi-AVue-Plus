@@ -97,9 +97,11 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
 
     // todo 修复page的路径不匹配
     if (responsePage) {
+      let pageInfo = {};
       Object.keys(responsePage).forEach(function (key) {
-        self.$data.page["_" + key] = responsePage[key];
+        pageInfo[key] = responsePage[key];
       });
+      self.$data.page.info = pageInfo;
     }
 
     let list = config.list;
@@ -114,15 +116,15 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
       let rootResponse = self.getRootData(res);
       requireMessage(self, rootResponse, "参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀,确定数据的分页根路径")
 
-      self.$data['data'] = rootResponse[self.getPage(page.pageData || 'data')];
+      self.$data['data'] = rootResponse[self.getPageInfo(page.pageData || 'data')];
 
       requireMessage(self, self.$data['data'], "page.pageData 参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀")
 
       // 初始化page部分
       let pageObject = {
-        pageSize: rootResponse[self.getPage(page.pageSize) || 'pageSize'],
-        pagerCount: rootResponse[self.getPage(page.pagerCount) || 'pagerCount'],
-        total: rootResponse[self.getPage(page.pageTotal) || 'total']
+        pageSize: rootResponse[self.getPageInfo(page.pageSize) || 'pageSize'],
+        pagerCount: rootResponse[self.getPageInfo(page.pagerCount) || 'pagerCount'],
+        total: rootResponse[self.getPageInfo(page.pageTotal) || 'total']
       }
 
       requireMessage(self, pageObject.pageSize, "page.pageSize 参数不能为空,否则渲染不出页面，参数可以参考@AVuePage的page前缀")
