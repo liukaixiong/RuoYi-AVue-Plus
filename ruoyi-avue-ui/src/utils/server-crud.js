@@ -36,7 +36,64 @@ function completionDomain(self, path) {
   return path;
 }
 
+/**
+ * json的格式化
+ * @param _self
+ * @param name
+ */
+function jsonFormat(_self, name) {
+  let jsonObject = _self.$refs['editor'];
+  for (let i = 0; i < jsonObject.length; i++) {
+    let attrName = jsonObject[i].$attrs['name'];
+    if (name === attrName) {
+      jsonObject[i].formatCode();
+      let value = jsonObject[i].getValue();
+      if (value && !isJson(value)) {
+        _self.$message.error("非标准的JSON,请检查!");
+      }
+    }
+  }
+}
+
+function isJson(val) {
+  try {
+    if (JSON.parse(val.trim())) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * 获取slot的form的name
+ * @param item
+ * @returns {string}
+ */
+function getSlotFormName(item) {
+  return item + "Form";
+}
+
+/**
+ * 获取json字符串
+ * @param value
+ * @returns {string|*}
+ */
+function getJsonString(value) {
+  if (!value) {
+    return "";
+  }
+  if (value instanceof Object) {
+    return JSON.stringify(value);
+  }
+  return value;
+}
+
 export default {
   processDMLResponse,
-  completionDomain
+  completionDomain,
+  getJsonString,
+  getSlotFormName,
+  jsonFormat
 }

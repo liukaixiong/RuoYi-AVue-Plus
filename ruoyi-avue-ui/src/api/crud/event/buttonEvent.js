@@ -93,7 +93,8 @@ export function openWindowJsonRemote(self, item, row, index) {
   }
   _remote.post(requestUrl, requestBody, (res) => {
     // 定义后端的请求路径
-    self.dialogConfig.config = res.config;
+    // self.dialogConfig.config = res.config;
+    self.dialogConfig.config = {};
     self.dialogConfig.config["submitUrl"] = submitUrl;
     self.dialogConfig.formOption = res.option;
     self.dialogConfig.dialogOption = {

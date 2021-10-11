@@ -73,8 +73,8 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
     self.$message.error("找不到对应的服务注册编号 请检查请求路径中的: server=" + pageRouteInfo.server + " 然后去[系统管理->服务注册]中查找是否有该编号!");
     return;
   }
-
   let domain = serverInfo.domainPath;
+  let acceptToken = serverInfo.acceptToken;
   let params = {
     "group": pageRouteInfo.group,
     "acceptToken": serverInfo.acceptToken
@@ -109,6 +109,7 @@ export function renderData(self, clientConfig, pageRouteInfo, serverInfo) {
     self.$data.option = responseConfig.option;
     self.$data.config = config;
     self.$data.config['domain'] = domain;
+    self.$data.config['acceptToken'] = acceptToken;
     postRenderData(self.$data);
 
     _remote.post(domain + list, {}, (res) => {

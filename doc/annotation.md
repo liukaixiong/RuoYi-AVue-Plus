@@ -66,7 +66,7 @@ page开头: 代表分页请求的返回结果编排。
 | :-------- | --------------- | -------------------- |
 | hrefClick | url : 跳转的URL | 点击跳转到特定的页面 |
 | confirmClickRemoteApi | title : 确认的标题<br />url : 处理的后台地址<br />method: 接口的请求方法[post,get] 默认是post | 点击弹出确认框，确认之后出发一个后台接口调用 |
-|           |                 |                      |
+| openWindowJsonRemote | attrExt:{<br />submitUrl: "提交地址",<br />url: "弹窗内容渲染JSON,默认`/avue/crud`",<br />group: "路由的分组名称"} | 点击按钮，弹出一个弹窗，内容渲染按照递归的方式查找渲染JSON。 |
 
 #### @AVueRule
 

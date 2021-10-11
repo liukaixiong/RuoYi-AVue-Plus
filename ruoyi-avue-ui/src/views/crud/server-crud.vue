@@ -59,8 +59,14 @@
           <!--          </p>-->
         </span>
       </template>
-
     </avue-crud>
+
+    <avue-dialog ref="avueDialogForm" :dialog-option="dialogConfig.dialogOption"
+                 :show-dialog-props="dialogConfig.showDialogProps"
+                 :form-option="dialogConfig.formOption" :object-data="dialogConfig.objectData"
+                 @submit="componentsDialogClickSubmit" @closeDialog="componentsDialogClickClose"
+                 @resetForm="componentsDialogResetForm">
+    </avue-dialog>
   </div>
 </template>
 
@@ -68,14 +74,26 @@
 
 import * as eventMethod from "@/api/crud/event/buttonEvent"
 import crudUtil from "@/utils/server-crud"
+import aVueDialog from "./avue-dialog"
+import dialogSubmitEvent from "@/api/crud/event/dialogSubmitEvent"
 
 export default window.$crudServerCommon({
     data() {
       return {
+        dialogConfig: {
+          config: {},
+          showDialogProps: false,
+          formOption: {},
+          objectData: {},
+          dialogOption: {}
+        },
         option: {
           dialogDrag: true, // 这里会有一个延迟问题,如果通过接口返回的话,即便为true也不会生效
         }
       }
+    },
+    components: {
+      'avue-dialog': aVueDialog
     },
     methods: {
       //列表前操作方法
@@ -137,7 +155,7 @@ export default window.$crudServerCommon({
       },
       isJson(val) {
         try {
-          if (val.indexOf("{") > -1 && val.indexOf("}") > -1 && JSON.parse(val.trim())) {
+          if (JSON.parse(val.trim())) {
             return true;
           }
           return false;
@@ -199,6 +217,15 @@ export default window.$crudServerCommon({
        */
       componentsBefore(form, done, loading) {
         return this.jsonComponents(form, done, loading);
+      },
+      componentsDialogClickSubmit(row, hide) {
+        dialogSubmitEvent[this.dialogConfig.config["submitEventName"] || 'defaultSubmit'](this, row, hide);
+      },
+      closeDialog() {
+        this.dialogConfig.showDialogProps = false;
+      }, componentsDialogClickClose() {
+        this.closeDialog();
+      }, componentsDialogResetForm() {
       }
     }
   },

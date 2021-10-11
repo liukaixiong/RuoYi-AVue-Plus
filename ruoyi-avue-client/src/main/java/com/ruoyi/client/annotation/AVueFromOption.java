@@ -14,6 +14,12 @@ import java.lang.annotation.*;
 public @interface AVueFromOption {
 
     /** -------------------------------- 非公共属性 -------------------------------------------------- **/
+    /**
+     * 标题
+     *
+     * @return
+     */
+    String title() default "";
 
     /**
      * 回车按键触发提交表单

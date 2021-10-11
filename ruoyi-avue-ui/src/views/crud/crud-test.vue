@@ -6,7 +6,7 @@
                :page="page"
                ref="crud"
                :data="data"
-               @row-update="updateBefore">
+               @row-update="updateBefore" @row-del="delBefore">
       <!-- https://avuejs.com/crud/crud-btn.html 参考 -->
       <!--
         slot取值的几种方式:
@@ -656,16 +656,16 @@ export default {
     eventDel(row, index) {
     },
     //列表后操作方法
-    listAfter() {
+    listAfter(row, done, loading, data) {
     },
 
     //新增前操作方法
-    addBefore() {
+    addBefore(row, done, loading, data) {
       this.form.createUser = 'small'
       debugger;
     },
     //新增后操作方法
-    addAfter() {
+    addAfter(row, done, loading, data) {
       this.$message.success('新增成功');
     },
     //修改前操作方法
@@ -688,11 +688,15 @@ export default {
     },
 
     //删除前操作方法
-    delBefore() {
+    delBefore(row, done, loading, data) {
+      debugger;
+      this.$message.success("点击了删除按钮 : "+JSON.stringify(row));
     },
 
     //删除后操作方法
-    delAfter() {
+    delAfter(row, done, loading, data) {
+      debugger;
+      this.$message.success("点击了删除按钮 : "+JSON.stringify(row));
     },
     // 按钮点击触发的方法
     btnClick(item, row, index) {
@@ -765,6 +769,7 @@ export default {
       this.closeDialog();
     },
     testDialogResetForm() {
+
     }
   }
 }
