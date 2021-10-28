@@ -134,7 +134,15 @@ public class AVueCrudModel {
 
 > 如果有字典相关的，可以往下参考详细文档内容
 
-**想要看效果可以直接到ruoyi-avue-client中的test包下直接启动SpringBoot功能**
+
+
+**想要看效果可以直接到ruoyi-avue-client中的test包下直接启动RuoYiClientTestApplication**
+
+**想要看效果可以直接到ruoyi-avue-client中的test包下直接启动RuoYiClientTestApplication**
+
+**想要看效果可以直接到ruoyi-avue-client中的test包下直接启动SRuoYiClientTestApplication**
+
+测试用例中集成了大部分使用功能，有二次开发需要的可以看看。
 
 ### 前端配置
 

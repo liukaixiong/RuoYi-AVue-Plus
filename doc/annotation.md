@@ -22,11 +22,11 @@
 
 ### 类级别注解
 
-#### @AVueRouteKey
+#### @AVueRouteKey : 模版编号
 
 负责定义一个组，前端根据这个组来确定模版，**单个服务中必须唯一否则会出现覆盖的情况**。
 
-#### @AVueConfig
+#### @AVueConfig : 后端路由配置
 
 后端接口服务的配置路径，支持Spring的环境变量配置的表达式 -> `${xxx}`。
 
@@ -43,13 +43,13 @@
 
 - - 比如success:true为成功，那么successField = `success`，successKeyword = `true`，如果为false那么会显示`messageField`指定的提示字段。
 
-#### @AVueTableOption
+#### @AVueTableOption : 表格查询配置
 
 表格的参数
 
 page开头: 代表分页请求的返回结果编排。
 
-#### @AVueFromOption
+#### @AVueFromOption : 表单配置
 
 表单的参数
 
@@ -57,7 +57,7 @@ page开头: 代表分页请求的返回结果编排。
 
 
 
-#### @AVuePage
+#### @AVuePage : 分页配置
 
 分页的配置参数定义，需要与后台的接口返回做适配。
 
@@ -94,7 +94,7 @@ page开头: 代表分页请求的返回结果编排。
 }
 ```
 
-#### @AVueEventButtons
+#### @AVueEventButtons : 按钮事件定义
 
 按钮事件组，通过指定确定布局的方式，去找对应的函数执行内容。执行方法是一个个模版，通过注解传递过去的参数来触发按钮的事件。
 
