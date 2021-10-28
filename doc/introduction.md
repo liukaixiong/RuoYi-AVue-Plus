@@ -17,8 +17,8 @@
 
 1. 执行后端脚本 :  [sql](../sql)目录下的脚本，先创建数据库的表环境。
    1. 找到`ruoyi-admin`项目
-      1. `application.yml` 回填 Redis的地址
-      2. `application-druid.yml` : 回填数据库的地址
+      1. `application.yml` **回填 Redis的地址**
+      2. `application-druid.yml` : **回填数据库的地址**
    2. 启动类: `RuoYiApplication`  标准的SpringBoot项目。 
 2. 启动前端 -> [ruoyi-avue-ui](../ruoyi-avue-ui/README.md) 
 
