@@ -40,11 +40,11 @@
 
 为了提升阅读体验可以观看全局文档:
 
-[全局文档点击观看](https://www.yuque.com/docs/share/912323d1-644e-44c7-8488-4bf7e1583fba?# 《RuoYi-AVue-Plus》)
+[全局文档点击观看](https://www.yuque.com/docs/share/912323d1-644e-44c7-8488-4bf7e1583fba)
 
-[全局文档点击观看](https://www.yuque.com/docs/share/912323d1-644e-44c7-8488-4bf7e1583fba?# 《RuoYi-AVue-Plus》)
+[全局文档点击观看](https://www.yuque.com/docs/share/912323d1-644e-44c7-8488-4bf7e1583fba)
 
-[全局文档点击观看](https://www.yuque.com/docs/share/912323d1-644e-44c7-8488-4bf7e1583fba?# 《RuoYi-AVue-Plus》)
+[全局文档点击观看](https://www.yuque.com/docs/share/912323d1-644e-44c7-8488-4bf7e1583fba)
 
 
 
