@@ -21,14 +21,30 @@ import java.util.List;
 @AVueTableOption(title = "这是一个测试", dialogDrag = true)
 @AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
 // 设置后台接口调用之后成功或者失败的结构模型
-@AVueEventButtons(tableRowButtons = {@AVueClickButton(methodName = "testA", btnName = "测试按钮A"),
-    @AVueClickButton(methodName = "testB", btnName = "测试按钮B"),
-    @AVueClickButton(methodName = "confirmClickRemoteApi", btnName = "确认按钮", attrExt = {
-        @AVueAttr(name = "title", value = "小伙子，你确定吗？有惊喜喔!"),
-        @AVueAttr(name = "url", value = AVueControllerTest.BODY_URL)})})
+@AVueEventButtons(tableRowButtons = {
+        @AVueClickButton(methodName = "testA", btnName = "测试按钮A"),
+        @AVueClickButton(methodName = "testB", btnName = "测试按钮B"),
+        @AVueClickButton(methodName = "confirmClickRemoteApi", btnName = "确认按钮", attrExt = {
+                @AVueAttr(name = "title", value = "小伙子，你确定吗？有惊喜喔!"),
+                @AVueAttr(name = "url", value = AVueControllerTest.BODY_URL)}),
+        // 指定事件
+        @AVueClickButton(type = "success", btnName = "弹层按钮测试", methodName = "openWindowJsonRemote", attrExt = {
+                // 当前弹层的提交路径
+                @AVueAttr(name = "submitUrl", value = AVueControllerTest.BODY_URL),
+                // 找下一个模版
+                @AVueAttr(name = "group", value = "test-config")})
+}
+        ,
+        tableTopLeftButtons = {
+                @AVueClickButton(methodName = "hrefClick", btnName = "跳转链接", type = "success", icon = "el-icon-setting", attrExt = {
+                        @AVueAttr(name = "url", value = "https://www.baidu.com")})
+        }
+)
 public class AVueCrudModel {
 
-    @AVueInput(prop = "id", label = "主键", addDisplay = false, editDisabled = true, search = true)
+    @AVueInput(prop = "id",
+            label = "主键",
+            addDisplay = false, editDisabled = true, search = true)
     private String id;
 
     @AVueInput(prop = "username", label = "用户名称", search = true, searchRequired = true, onClick = "testB")
@@ -44,7 +60,7 @@ public class AVueCrudModel {
     private Integer age = 18;
 
     @AVueRadio(prop = "sex", label = "性别", border = true, dicData = "SexEnums")
-    private int sex = (int)SexEnums.UNKNOWN.getCode();
+    private int sex = (int) SexEnums.UNKNOWN.getCode();
 
     @AVueDatetime(prop = "validDate", label = "有效时间")
     private Date validDate;
