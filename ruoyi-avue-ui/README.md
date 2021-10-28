@@ -1,5 +1,7 @@
 ## 开发
 
+​		**请先安装好NodeJS环境**
+
 ```bash
 # 克隆项目
 git clone https://gitee.com/liukaixiong/RuoYi-AVue-Plus.git
@@ -30,8 +32,6 @@ npm run build:stage
 # 构建生产环境
 npm run build:prod
 ```
-
-
 
 ### tomcat部署
 
@@ -65,11 +65,32 @@ npm run build:prod
 
 [若依部署方案](http://doc.ruoyi.vip/ruoyi-vue/document/hjbs.html#%E5%89%8D%E7%AB%AF%E9%83%A8%E7%BD%B2)
 
+
+
+### IDEA 开发
+
+
+
+1. 编辑启动配置
+
+![image-20211028113735024](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211028113735024.png)
+
+2. 设置应用环境，找到`ruoyi-avue-ui`的`package.json`位置
+
+![image-20211028113633480](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211028113633480.png)
+
+点击启动DEBUG就OK了。
+
+**页面调试的话，请打开浏览器F12里面还是按照前端那一套调试逻辑。**
+
 ## 代码相关介绍
 
 - src
   - api : 远程调用相关
     - crud : 涵盖了AVue调用后台逻辑的JS
+      - event : 事件定义 
+        - dialogSubmitEvent.js : 通用的弹层提交的事件定义
+        - rowClickEvent.js : 行点击事件定义
   - const : 常量枚举定义  
   - mixins : AvueJS的增删改查增强的js
     - crud.js : 原生的AVueJS增强版

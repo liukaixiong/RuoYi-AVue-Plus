@@ -24,11 +24,24 @@
 
 #### @AVueRouteKey
 
-负责定义一个组，前端根据这个组来确定模版。
+负责定义一个组，前端根据这个组来确定模版，**单个服务中必须唯一否则会出现覆盖的情况**。
 
 #### @AVueConfig
 
-后端接口服务的配置路径，支持Spring的环境变量转换。
+后端接口服务的配置路径，支持Spring的环境变量配置的表达式 -> `${xxx}`。
+
+- list : 列表的服务访问路径
+- save : 新增的服务请求路径
+
+- update : 修改的服务请求路径
+- del : 删除的服务请求路径
+
+- messageField: 接口的消息提示字段名称
+- successField : 代表服务返回成功的字段名称
+
+- successKeyword: 根据返回字段的关键字做匹配来判断当前请求是否成功
+
+- - 比如success:true为成功，那么successField = `success`，successKeyword = `true`，如果为false那么会显示`messageField`指定的提示字段。
 
 #### @AVueTableOption
 
@@ -36,13 +49,50 @@
 
 page开头: 代表分页请求的返回结果编排。
 
-
-
 #### @AVueFromOption
 
 表单的参数
 
 - `successKeyword` : 增删改的接口返回成功的标识关键字
+
+
+
+#### @AVuePage
+
+分页的配置参数定义，需要与后台的接口返回做适配。
+
+举例: 
+
+```json
+{
+    "success":true,
+    "errorCode":null,
+    "message":null, 
+    "pageModel":{ // pageRoot : 根路径
+        "rowTotal":0,
+        "pageSize":10, // pageSize : 每页大小
+        "count":1,
+        "total":1, // pageTotal : // 每页总数
+        "beginIndex":0,
+        "endIndex":0,
+        "resultSet":[ // pageData : 每页的数据名称
+            {
+                "id":"HW1RIXwBi112tDv4JLJf",
+                "ruleName":"所有项目通用规则",
+                "project":"all",
+                "title":"通用规则",
+                "status":-1,
+                "creator":"",
+                "createDate":1632646538330,
+                "updator":"",
+                "updated":1632909056496
+            } 
+        ],
+        "orderby":"",
+        "totalRow":0
+    }
+}
+```
 
 #### @AVueEventButtons
 
@@ -50,17 +100,16 @@ page开头: 代表分页请求的返回结果编排。
 
 ##### @AVueClickButton
 
-- type : [按钮类型参考](类型 参考 element-ui -> https://element.eleme.cn/#/zh-CN/component/button)
+- type : 按钮类型参考类型 : 参考 element-ui -> https://element.eleme.cn/#/zh-CN/component/button
 - icon : 按钮标题
-- methodName: 方法名称
-
-> 定义在ruoyi-avue-ui/src/api/crud/event/buttonEvent.js中的方法名称
 
 - btnName: 按钮名称
 - fieldNames : 按钮参数
+
 - attrExt： 拓展属性
+- methodName: 方法名称
 
-
+**定义在ruoyi-avue-ui/src/api/crud/event/rowClickEvent.js中的方法名称**
 
 | 事件名称  | 事件参数        | 事件描述             |
 | :-------- | --------------- | -------------------- |

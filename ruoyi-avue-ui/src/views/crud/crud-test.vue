@@ -1,12 +1,18 @@
+<!--
+  该模版是用来调试静态JSON情况的，不和后台服务挂钩，全部都是静态参数，调试完毕之后，可以将代码迁移至server-crud.vue中
+-->
 <template>
   <div class="basic-container">
     <!--    <el-card class="basic-container__card">-->
     <h3>固定的JSON参数测试</h3>
+    <!--
+    @search-change : 搜索发生改变回调的方法   https://avuejs.com/crud/crud-search.html#%E6%99%AE%E9%80%9A%E7%94%A8%E6%B3%95
+    -->
     <avue-crud :option="option"
                :page="page"
                ref="crud"
                :data="data"
-               @row-update="updateBefore" @row-del="delBefore">
+               @row-update="updateBefore" @row-del="delBefore" @search-change="listAfter">
       <!-- https://avuejs.com/crud/crud-btn.html 参考 -->
       <!--
         slot取值的几种方式:
@@ -82,16 +88,12 @@
                  @submit="testDialogClickSubmit" @closeDialog="testDialogClickClose" @resetForm="testDialogResetForm">
     </avue-dialog>
 
-    <!--    <avue-data-rotate :option="rotateOption">-->
-
-    <!--    </avue-data-rotate>-->
-
   </div>
 </template>
 
 <script>
 
-import * as eventMethod from "@/api/crud/event/buttonEvent"
+import * as eventMethod from "@/api/crud/event/rowClickEvent"
 import aVueDialog from "./avue-dialog"
 import dialogSubmitEvent from "@/api/crud/event/dialogSubmitEvent"
 // 注册组件
@@ -646,17 +648,13 @@ export default {
   }, methods: {
     commitUpdate(row, index, done, loading) {
       console.log("提交更新", row);
-      // setTimeout(()=>{
-      //   loading();
-      //   this.$message.success('3秒后关闭表单')
-      // },5000)
       this.$message.success('修改成功')
-      // done();
     },
     eventDel(row, index) {
     },
     //列表后操作方法
-    listAfter(row, done, loading, data) {
+    listAfter(row, done) {
+      debugger;
     },
 
     //新增前操作方法
@@ -672,15 +670,6 @@ export default {
     updateBefore(form, index, done, loading) {
       this.form.updateUser = 'small';
       debugger;
-      // let jsonObject = this.$refs['editor'];
-      // if (jsonObject) {
-      //   for (let i = 0; i < jsonObject.length; i++) {
-      //     let value = jsonObject[i].getValue();
-      //     let name = jsonObject[i].$attrs['name'];
-      //     form[name] = value;
-      //     console.log(" 获取JSON 中的值 11 " + name + " : " + value);
-      //   }
-      // }
     },
 
     //修改后操作方法
@@ -690,13 +679,13 @@ export default {
     //删除前操作方法
     delBefore(row, done, loading, data) {
       debugger;
-      this.$message.success("点击了删除按钮 : "+JSON.stringify(row));
+      this.$message.success("点击了删除按钮 : " + JSON.stringify(row));
     },
 
     //删除后操作方法
     delAfter(row, done, loading, data) {
       debugger;
-      this.$message.success("点击了删除按钮 : "+JSON.stringify(row));
+      this.$message.success("点击了删除按钮 : " + JSON.stringify(row));
     },
     // 按钮点击触发的方法
     btnClick(item, row, index) {
@@ -707,16 +696,6 @@ export default {
     }
     , onJsonChange(name, value) {
       this.jsonTemp = value;
-
-      // let jsonObject = this.$refs['editor'];
-      // for (let i = 0; i < jsonObject.length; i++) {
-      //   let attrName = jsonObject[i].$attrs['name'];
-      //   if (name === attrName) {
-      //     debugger;
-      //     let newValue = jsonObject[i].getValue();
-      //     jsonObject[i].value = newValue;
-      //   }
-      // }
       debugger;
     }
     , initJsonValue(name, value) {
@@ -734,7 +713,7 @@ export default {
       return value;
     },
     jsonFormat(name) {
-      var self = this;
+      let self = this;
       let jsonObject = self.$refs['editor'];
       for (let i = 0; i < jsonObject.length; i++) {
         let attrName = jsonObject[i].$attrs['name'];

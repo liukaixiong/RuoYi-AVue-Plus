@@ -43,8 +43,6 @@ INSERT INTO  `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`
 
 ## 开始使用
 
-
-
 ### 后端引用
 
 #### 1. 引入`ruoyi-avue-client`的maven依赖
@@ -73,6 +71,8 @@ public class RuoYiClientTestApplication {
 - enumsPackages: 枚举存放位置
 
 #### 3. 定义属性模版配置
+
+该模版在**ruoyi-avue-client**中的test包下`com.ruoyi.client.model.AVueCrudModel`
 
 ```java
 @AVueRouteKey(groupKey = "test-route")
@@ -134,6 +134,8 @@ public class AVueCrudModel {
 
 > 如果有字典相关的，可以往下参考详细文档内容
 
+**想要看效果可以直接到ruoyi-avue-client中的test包下直接启动SpringBoot功能**
+
 ### 前端配置
 
 #### 1. 注册服务地址
@@ -152,9 +154,7 @@ public class AVueCrudModel {
   - server : 服务注册地址的主键编号，如上图1
   - group: 后端步骤3的`@AVueRouteKey`的`groupKey`的值
 
-
-
-组件会根据回填的server和group去查找对应的服务路径，然后获取模版。切记。。。
+组件会根据回填的**server**和**group**去查找对应的服务路径，然后获取模版。切记。。。
 
 至此完工...
 

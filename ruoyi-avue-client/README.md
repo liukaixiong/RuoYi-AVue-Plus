@@ -154,8 +154,6 @@ public interface AVueAttrPostProcess {
 
 具体还可以参考已经实现了的`com.ruoyi.client.processor.DicDataProcess` : 针对字典的增强
 
-
-
 ### 3. 拓展类
 
 #### 全局特定注解的默认属性值

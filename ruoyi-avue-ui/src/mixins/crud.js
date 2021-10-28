@@ -48,6 +48,7 @@ export default (app, option = {}) => {
     methods: {
       getList() {
         const callback = () => {
+          debugger;
           this.loading = true;
           let pageParams = {}
           pageParams[option.pageNumber || 'pageNumber'] = this.page.currentPage

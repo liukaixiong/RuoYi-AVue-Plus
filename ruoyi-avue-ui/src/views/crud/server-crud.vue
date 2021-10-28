@@ -61,6 +61,7 @@
       </template>
     </avue-crud>
 
+    <!-- 弹层组件 -->
     <avue-dialog ref="avueDialogForm" :dialog-option="dialogConfig.dialogOption"
                  :show-dialog-props="dialogConfig.showDialogProps"
                  :form-option="dialogConfig.formOption" :object-data="dialogConfig.objectData"
@@ -72,7 +73,7 @@
 
 <script>
 
-import * as eventMethod from "@/api/crud/event/buttonEvent"
+import * as eventMethod from "@/api/crud/event/rowClickEvent"
 import crudUtil from "@/utils/server-crud"
 import aVueDialog from "./avue-dialog"
 import dialogSubmitEvent from "@/api/crud/event/dialogSubmitEvent"

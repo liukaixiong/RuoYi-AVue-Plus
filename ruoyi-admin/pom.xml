@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ruoyi-avue-plus</artifactId>
         <groupId>com.ruoyi.avue</groupId>
-        <version>3.6.0</version>
+        <version>1.0.0-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
@@ -14,6 +14,7 @@
     <description>
         web服务入口
     </description>
+
 
     <dependencies>
 
