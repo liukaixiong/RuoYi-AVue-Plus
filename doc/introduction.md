@@ -144,6 +144,8 @@ public class AVueCrudModel {
 
 测试用例中集成了大部分使用功能，有二次开发需要的可以看看。
 
+[测试用例的具体参考](../ruoyi-avue-client/src/test/README.md)
+
 ### 前端配置
 
 #### 1. 注册服务地址

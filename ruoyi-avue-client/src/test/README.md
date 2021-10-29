@@ -9,6 +9,8 @@
 
 ### 相关的样例实体
 
+test目录下 : `com.ruoyi.client.model.AVueCrudModel`
+
 ```java
 @AVueRouteKey(groupKey = "test-route")
 @AVueTableOption(title = "这是一个测试", dialogDrag = true)
@@ -62,3 +64,30 @@ public class AVueCrudModel {
 
 }
 ```
+
+## 演示注意事项
+
+### 1. 注册地址
+
+测试用例中的端口为`8765` ， 请确认前端菜单栏中
+
+-> [系统管理-服务注册] -> 是否注册有测试服务的地址
+
+### 2. 注册菜单
+
+1. 确认是否有菜单栏出现，比如案例脚本中会涵盖`测试案例`的模块。如果没有请到项目根目录下找到`sql`目录下的server.sql的脚本内有菜单栏的SQL执行.
+2. 查看菜单栏中的路由地址: `service?server=1&&group=test-route` 
+
+### 3. 授权字样
+
+`RuoYi-AVue-Plus\ruoyi-avue-client\src\test\resources\application.yml` 
+
+```yaml
+spring:
+  avue:
+    debug: true
+    accept-token: abc12345
+```
+
+请查看注册服务节点是否`accept-token`值一致。
+

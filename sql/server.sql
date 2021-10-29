@@ -11,6 +11,8 @@ CREATE TABLE `sys_server` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
+-- 默认测试用例中的服务节点
+INSERT INTO  `sys_server`(`id`, `server_name`, `domain_path`, `accept_token`, `status`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES (1, 'elab-test', 'http://localhost:8765', 'abc12345', '1', '', '2021-08-20 15:19:02', '', '2021-08-27 15:31:15');
 
 -- 服务注册菜单
 INSERT INTO  `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2003, '服务注册', 1, 18, '/server', 'system/server/index', 1, 0, 'C', '0', '0', 'server:index', 'server', 'admin', '2021-08-13 18:48:23', 'admin', '2021-08-13 18:49:38', '');
