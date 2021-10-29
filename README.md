@@ -75,11 +75,32 @@
 ### 2. 模版案例
 
 ```java
+// 模版对应的编号
 @AVueRouteKey(groupKey = "test-route")
-@AVueTableOption(title = "这是一个测试")
-@AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL)
+// 表格的标题
+@AVueTableOption(title = "这是一个测试", dialogDrag = true)
+// 适配后台服务的对应的处理接口
+@AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
 public class AVueCrudModel {
-
+    /**
+     * 注解介绍
+     *
+     * `@AVueInput`: 组件类型以@AVue开始，后面是具体的组件。
+     * - input  ： 代表文本框
+     * - select ： 代表选择框
+     * - number ： 代表数字框
+     * - json   ： 代表json组件
+     * <p>
+     * 属性介绍：
+     * addDisplay       ： 表示新增的时候是否展示
+     * editDisabled     ： 表示修改的时候是否不可编辑
+     * search           ： 代表列表页是否为搜索条件
+     * searchRequired   ： 代表搜索条件是否为必填
+     * dicData          ： 代表枚举字典
+     * dicUrl           ： 代表后台拉取对象
+     * 具体属性释义可参考 :  https://avuejs.com/views/doc.html
+     * 注解文档参考 : https://gitee.com/liukaixiong/RuoYi-AVue-Plus/blob/master/doc/annotation.md
+     */
     @AVueInput(prop = "id", label = "主键", addDisplay = false, editDisabled = true, search = true)
     private String id;
 
@@ -160,3 +181,4 @@ public class AVueCrudModel {
 **如果你有比较好的想法或者建议请加QQ : 444368875 或者发送邮件 444368875@qq.com**
 
 **希望大家多多支持，我会时刻关注并且加以改进。**
+

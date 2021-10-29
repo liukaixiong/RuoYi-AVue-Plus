@@ -123,3 +123,41 @@ page开头: 代表分页请求的返回结果编排。
 
 必填项等等...
 
+#### @AVue组件类
+
+##### @AVueInput : 文本框
+
+##### @AVueSelect : 下拉框
+
+##### @AVueCascader : 级联选择器
+
+##### @AVueCheckbox : 复选框
+
+##### @AVueDateRange : 时间范围选择
+
+##### @AVueDatetime : 时间选择器
+
+##### @AVueDynamic : 子表单
+
+允许递归嵌套处理。
+
+##### @AVueNumber : 数字组件
+
+##### @AVueRadio : 单选框
+
+##### @AVueRate : 评分组件
+
+##### @AVueSlider : 滑块属性
+
+##### @AVueSwitch : 开关组件
+
+##### @AVueTextarea : 大文本框
+
+##### @AVueTime : 时分秒组件
+
+##### @AVueTimeRange : 时分秒范围
+
+##### @AVueTree : 树形组件
+
+##### @AVueUpload : 上传组件
+

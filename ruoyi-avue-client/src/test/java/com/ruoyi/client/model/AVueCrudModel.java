@@ -17,24 +17,29 @@ import java.util.List;
  * @Email liukx@elab-plus.com
  * @date 2021/8/17 - 13:02
  */
+// 模版对应的编号
 @AVueRouteKey(groupKey = "test-route")
+// 表格的标题
 @AVueTableOption(title = "这是一个测试", dialogDrag = true)
+// 适配后台服务的对应的处理接口
 @AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
 // 设置后台接口调用之后成功或者失败的结构模型
-@AVueEventButtons(tableRowButtons = {
-        @AVueClickButton(methodName = "testA", btnName = "测试按钮A"),
-        @AVueClickButton(methodName = "testB", btnName = "测试按钮B"),
-        @AVueClickButton(methodName = "confirmClickRemoteApi", btnName = "确认按钮", attrExt = {
-                @AVueAttr(name = "title", value = "小伙子，你确定吗？有惊喜喔!"),
-                @AVueAttr(name = "url", value = AVueControllerTest.BODY_URL)}),
-        // 指定事件
-        @AVueClickButton(type = "success", btnName = "弹层按钮测试", methodName = "openWindowJsonRemote", attrExt = {
-                // 当前弹层的提交路径
-                @AVueAttr(name = "submitUrl", value = AVueControllerTest.BODY_URL),
-                // 找下一个模版
-                @AVueAttr(name = "group", value = "test-config")})
-}
-        ,
+@AVueEventButtons(
+        // 每一行的按钮事件定义
+        tableRowButtons = {
+                @AVueClickButton(methodName = "testA", btnName = "测试按钮A"),
+                @AVueClickButton(methodName = "testB", btnName = "测试按钮B"),
+                @AVueClickButton(methodName = "confirmClickRemoteApi", btnName = "确认按钮", attrExt = {
+                        @AVueAttr(name = "title", value = "小伙子，你确定吗？有惊喜喔!"),
+                        @AVueAttr(name = "url", value = AVueControllerTest.BODY_URL)}),
+                // 指定事件
+                @AVueClickButton(type = "success", btnName = "弹层按钮测试", methodName = "openWindowJsonRemote", attrExt = {
+                        // 当前弹层的提交路径
+                        @AVueAttr(name = "submitUrl", value = AVueControllerTest.BODY_URL),
+                        // 找下一个模版
+                        @AVueAttr(name = "group", value = "test-config")})
+        },
+        // 左上角按钮事件
         tableTopLeftButtons = {
                 @AVueClickButton(methodName = "hrefClick", btnName = "跳转链接", type = "success", icon = "el-icon-setting", attrExt = {
                         @AVueAttr(name = "url", value = "https://www.baidu.com")})
@@ -42,9 +47,26 @@ import java.util.List;
 )
 public class AVueCrudModel {
 
-    @AVueInput(prop = "id",
-            label = "主键",
-            addDisplay = false, editDisabled = true, search = true)
+    /**
+     * 注解介绍
+     *
+     * @AVueInput: 组件类型以@AVue开始，后面是具体的组件。
+     * - input  ： 代表文本框
+     * - select ： 代表选择框
+     * - number ： 代表数字框
+     * - json   ： 代表json组件
+     * <p>
+     * 属性介绍：
+     * addDisplay       ： 表示新增的时候是否展示
+     * editDisabled     ： 表示修改的时候是否不可编辑
+     * search           ： 代表列表页是否为搜索条件
+     * searchRequired   ： 代表搜索条件是否为必填
+     * dicData          ： 代表枚举字典
+     * dicUrl           ： 代表后台拉取对象
+     * 具体属性释义可参考 :  https://avuejs.com/views/doc.html
+     * 注解文档参考 : https://gitee.com/liukaixiong/RuoYi-AVue-Plus/blob/master/doc/annotation.md
+     */
+    @AVueInput(prop = "id", label = "主键", addDisplay = false, editDisabled = true, search = true)
     private String id;
 
     @AVueInput(prop = "username", label = "用户名称", search = true, searchRequired = true, onClick = "testB")
