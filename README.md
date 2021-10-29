@@ -64,6 +64,91 @@
 
 [注解相关的介绍](./doc/annotation.md)
 
+## 展示图
+
+### 1. 操作介绍
+
+负责展示了各模块的关系
+
+![image-20211029110727955](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029110727955.png)
+
+### 2. 模版案例
+
+```java
+@AVueRouteKey(groupKey = "test-route")
+@AVueTableOption(title = "这是一个测试")
+@AVueConfig(list = AVueControllerTest.LIST_URL, update = AVueControllerTest.UPDATE_URL, save = AVueControllerTest.UPDATE_URL)
+public class AVueCrudModel {
+
+    @AVueInput(prop = "id", label = "主键", addDisplay = false, editDisabled = true, search = true)
+    private String id;
+
+    @AVueInput(prop = "username", label = "用户名称", search = true)
+    private String username;
+
+    @AVueSelect(prop = "checkStatus", label = "认证状态", dicData = "CheckStatusEnums", search = true)
+    private String checkStatus;
+
+    @AVueSelect(prop = "likeStar", label = "喜欢明星", dicData = "test-likeStar-map")
+    private Integer likeStar;
+
+    @AVueNumber(prop = "age", label = "年龄", labelTip = "这是选择年龄的地方")
+    private Integer age;
+
+    @AVueRadio(prop = "sex", label = "性别", border = true, dicData = "SexEnums")
+    private int sex;
+
+    @AVueDatetime(prop = "validDate", label = "有效时间")
+    private Date validDate;
+
+    @AVueTime(prop = "time", label = "时分秒选择")
+    private Date time;
+
+    @AVueTimeRange(prop = "timeRange", label = "时分秒范围")
+    private Date timeRange;
+
+    @AVueDateRange(prop = "dateRange", rangeSeparator = "-", label = "日期范围", search = true, valueFormat = "yyyy年MM月dd日", format = "yyyy-MM-dd")
+    private String dateRange;
+
+    @AVueCheckbox(prop = "interest", label = "兴趣爱好", dicData = "InterestEnums")
+    private List<String> interest;
+
+    @AVueSwitch(prop = "status", label = "状态", dicData = "StatusEnums")
+    private int status;
+
+    @AVueDynamic(prop = "simpleModel", label = "子表单测试")
+    private AVueSimpleModel simpleModel;
+
+    @AVueGroup(prop = "groupModel", label = "分组测试1")
+    private AVueNodeModel groupModel;
+
+    @AVueGroup(prop = "groupModel2", label = "分组测试2")
+    private AVueNodeModel groupModel2;
+    // 省略get/set .... 其实如果只作为模版的话不需要getset.
+}
+```
+
+### 3. 页面展示
+
+#### 1. 列表页效果
+
+![](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/rq10ne.png)
+
+#### 2. 新增页面效果
+
+![](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/q8y6ja.png)
+
+#### 3. 修改效果
+
+![修改](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20210820171255314.png)
+
+
+### 动态效果
+
+![新增](ruoyi-avue-client/README.assets/6d4ftd.gif)
+
+![新增](ruoyi-avue-client/README.assets/xyju9p.gif)
+
 ## 感谢
 
 | 作者主页                                     | 框架     |
