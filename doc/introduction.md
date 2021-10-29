@@ -32,7 +32,7 @@
 <dependency>
     <groupId>com.ruoyi.avue</groupId>
     <artifactId>ruoyi-avue-client</artifactId>
-    <version>3.6.0</version>
+    <version>${下载下来的项目版本号}</version>
 </dependency>
 ```
 
