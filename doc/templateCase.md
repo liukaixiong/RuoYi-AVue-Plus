@@ -1,22 +1,58 @@
-package com.ruoyi.client.model;
+# 模版实战案例
 
-import com.ruoyi.client.annotation.*;
-import com.ruoyi.client.annotation.column.*;
-import com.ruoyi.client.annotation.column.props.AVueUploadPropsHttp;
-import com.ruoyi.client.controller.AVueControllerTest;
-import com.ruoyi.client.enums.CheckStatusEnums;
-import com.ruoyi.client.enums.SexEnums;
+## 1. 简单基础模版
 
-import java.util.Date;
-import java.util.List;
+模版来源 : `ruoyi-avue-client > test > com/ruoyi/client/model/AVueSimpleModel.java` 
 
-/**
- * 模拟增删改查表单列表构建数据
- *
- * @author liukaixiong
- * @Email liukx@elab-plus.com
- * @date 2021/8/17 - 13:02
- */
+- 组编号
+- 表单配置项
+- 后台服务项
+- 基础组件
+
+```java
+@AVueRouteKey(groupKey = "test-config")
+@AVueTableOption(title = "这是一个测试")
+@AVueConfig(list = AVueConfigControllerTest.LIST_URL, update = AVueConfigControllerTest.UPDATE_URL, save = AVueConfigControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
+public class AVueSimpleModel {
+
+    @AVueInput(prop = "id", label = "主键", addDisplay = false, row = true, editDisabled = true, search = true)
+    private String id;
+
+    @AVueInput(prop = "configGroup", label = "组名称", search = true, row = true, rules = {
+        @AVueRule(required = true, message = "组名称要填咧"), @AVueRule(min = 5, max = 10, message = "我跟你讲最小5个,最大10个.")})
+    private String configGroup;
+
+    @AVueInput(prop = "configName", label = "配置名称", search = true, required = true, row = true)
+    private String configName;
+
+    @AVueSelect(prop = "configCode", label = "配置值", dicData = "StatusEnums", search = true, required = true, row = true)
+    private String configCode;
+
+    @AVueNumber(prop = "validDay", label = "有效天数", search = true, required = true, row = true)
+    private Integer validDay;
+
+    @AVueSwitch(prop = "status", label = "状态", dicData = "StatusEnums", row = true)
+    private int status; 
+     
+}
+
+```
+
+非常基础的模版，没有复杂的组件，但是大部分都是必须的.基于以上模版得到的结果: 
+
+![image-20211029144730914](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029144730914.png)
+
+![image-20211029144832043](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029144832043.png)
+
+![image-20211029144845206](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029144845206.png)
+
+## 2. 复杂模版
+
+模版来源 : `ruoyi-avue-client > test > com/ruoyi/client/model/AVueCrudModel.java:27` 
+
+​	里面包含了特殊按钮、特殊组件、表单嵌套等等
+
+```java
 // 模版对应的编号
 @AVueRouteKey(groupKey = "test-route")
 // 表格的标题
@@ -104,21 +140,12 @@ public class AVueCrudModel {
     @AVueSwitch(prop = "status", label = "状态", dicData = "StatusEnums")
     private int status;
 
-    /**
-     * 单图上传
-     */
     @AVueUpload(prop = "image", label = "单图上传", listType = "picture-img", action = "/upload", propsHttp = @AVueUploadPropsHttp(res = "single", name = "fileName"))
     private String image;
 
-    /**
-     * 多图上传
-     */
     @AVueUpload(prop = "imageList", dataType = "array", listType = "picture-card", label = "单图上传", action = "/upload", propsHttp = @AVueUploadPropsHttp(res = "single", name = "fileName"))
     private List<String> imageList;
 
-    /**
-     * json组件
-     */
     @AVueJson(prop = "dataJson", label = "拓展字段")
     private String dataJson;
 
@@ -126,7 +153,7 @@ public class AVueCrudModel {
      * 支持模版嵌套
      */
     @AVueDynamic(prop = "simpleModel", label = "子表单测试")
-    private AVueNodeModel simpleModel;
+    private AVueSimpleModel simpleModel;
 
     /**
      * 支持分组类型
@@ -137,123 +164,16 @@ public class AVueCrudModel {
     @AVueGroup(prop = "groupModel2", label = "分组测试2")
     private AVueNodeModel groupModel2;
 
-    //    public AVueNodeModel getGroupModel() {
-    //        return groupModel;
-    //    }
-    //
-    //    public void setGroupModel(AVueNodeModel groupModel) {
-    //        this.groupModel = groupModel;
-    //    }
-    //
-    //    public AVueNodeModel getGroupModel2() {
-    //        return groupModel2;
-    //    }
-    //
-    //    public void setGroupModel2(AVueNodeModel groupModel2) {
-    //        this.groupModel2 = groupModel2;
-    //    }
-    //
-    //    public AVueSimpleModel getSimpleModel() {
-    //        return simpleModel;
-    //    }
-    //
-    //    public void setSimpleModel(AVueSimpleModel simpleModel) {
-    //        this.simpleModel = simpleModel;
-    //    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public String getTimeRange() {
-        return timeRange;
-    }
-
-    public void setTimeRange(String timeRange) {
-        this.timeRange = timeRange;
-    }
-
-    public List<Date> getDateRange() {
-        return dateRange;
-    }
-
-    public void setDateRange(List<Date> dateRange) {
-        this.dateRange = dateRange;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getCheckStatus() {
-        return checkStatus;
-    }
-
-    public void setCheckStatus(String checkStatus) {
-        this.checkStatus = checkStatus;
-    }
-
-    public Integer getLikeStar() {
-        return likeStar;
-    }
-
-    public void setLikeStar(Integer likeStar) {
-        this.likeStar = likeStar;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
-    public Date getValidDate() {
-        return validDate;
-    }
-
-    public void setValidDate(Date validDate) {
-        this.validDate = validDate;
-    }
-
-    public List<String> getInterest() {
-        return interest;
-    }
-
-    public void setInterest(List<String> interest) {
-        this.interest = interest;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }
+
+```
+
+得到效果
+
+![image-20211029145437212](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029145437212.png)
+
+下面是修改按照两张图截全的。
+
+![image-20211029150239178](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029150239178.png)
+
+![image-20211029150252017](https://gitee.com/liukaixiong/drawing-bed/raw/master/image/image-20211029150252017.png)

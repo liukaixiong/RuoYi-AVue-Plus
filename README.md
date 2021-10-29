@@ -64,6 +64,8 @@
 
 [注解相关的介绍](./doc/annotation.md)
 
+[案例模版](./doc/templateCase.md)
+
 ## 展示图
 
 ### 1. 操作介绍

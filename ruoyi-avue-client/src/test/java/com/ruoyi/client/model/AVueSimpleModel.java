@@ -16,7 +16,7 @@ import com.ruoyi.client.controller.AVueConfigControllerTest;
  * @author liukaixiong
  * @Email liukx@elab-plus.com
  * @date 2021/8/17 - 13:02
- */
+// */
 @AVueRouteKey(groupKey = "test-config")
 @AVueTableOption(title = "这是一个测试")
 @AVueConfig(list = AVueConfigControllerTest.LIST_URL, update = AVueConfigControllerTest.UPDATE_URL, save = AVueConfigControllerTest.UPDATE_URL, successKeyword = "true", successField = "success", messageField = "message")
