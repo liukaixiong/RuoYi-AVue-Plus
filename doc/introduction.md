@@ -22,25 +22,6 @@
    2. 启动类: `RuoYiApplication`  标准的SpringBoot项目。 
 2. 启动前端 -> [ruoyi-avue-ui](../ruoyi-avue-ui/README.md) 
 
-服务注册脚本:
-
-```sql
-CREATE TABLE `sys_server` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `server_name` varchar(100) DEFAULT NULL COMMENT '服务名称',
-  `domain_path` varchar(255) DEFAULT NULL COMMENT '服务域名路径',
-  `accept_token` varchar(32) DEFAULT NULL COMMENT '授权token',
-  `status` char(1) DEFAULT '0' COMMENT '状态（1正常 -1停用）',
-  `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO  `sys_menu`(`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (2003, '服务注册', 1, 18, '/server', 'system/server/index', 1, 0, 'C', '0', '0', 'server:index', 'server', 'admin', '2021-08-13 18:48:23', 'admin', '2021-08-13 18:49:38', '');
-```
-
 ## 开始使用
 
 ### 后端引用
