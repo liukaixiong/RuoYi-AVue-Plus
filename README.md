@@ -64,8 +64,6 @@
 
 [注解相关的介绍](./doc/annotation.md)
 
-[案例模版](./doc/templateCase.md)
-
 ## 展示图
 
 ### 1. 操作介绍
@@ -150,6 +148,9 @@ public class AVueCrudModel {
     // 省略get/set .... 其实如果只作为模版的话不需要getset.
 }
 ```
+
+[相关案例模版，后续会继续补充](./doc/templateCase.md)
+
 
 ### 3. 页面展示
 
