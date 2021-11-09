@@ -6,7 +6,6 @@
                ref="crud"
                :page.sync="page"
     >
-
       <template is="option.tableRowButtons && option.tableRowButtons.length > 0" slot-scope="{row,index}" slot="menu">
         <span v-for="item in option.tableRowButtons">
           <el-button :type="item.type || 'text'"
@@ -57,6 +56,20 @@
           <!--          <p>-->
           <!--            <el-button @click="jsonFormat(column.prop)">格式化验证JSON字符串</el-button>-->
           <!--          </p>-->
+        </span>
+        <span v-if="column.type === 'table'">
+            <avue-crud ref="crud" :option="column.children" :data="value || []" v-on="onEvent" v-bind="bindVal">
+                <template is="column.children.tableRowButtons && column.children.tableRowButtons.length > 0" slot-scope="{row,index}" slot="menu">
+                  <span v-for="nodeItem in column.children.tableRowButtons">
+                    <el-button :type="nodeItem.type || 'text'"
+                               :icon="nodeItem.icon || 'el-icon-edit'"
+                               :size="nodeItem.size || 'mini'"
+                               plain
+                               @click="btnClick(nodeItem,row,index)">{{ nodeItem.btnName }}
+                    </el-button>
+                  </span>
+                </template>
+            </avue-crud>
         </span>
       </template>
     </avue-crud>

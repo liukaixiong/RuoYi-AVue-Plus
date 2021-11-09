@@ -1,16 +1,16 @@
 package com.ruoyi.client.config;
 
 import com.ruoyi.client.annotation.AVueGroup;
+import com.ruoyi.client.annotation.column.AVueDynamic;
 import com.ruoyi.client.annotation.column.AVueJson;
+import com.ruoyi.client.annotation.column.AVueTable;
 import com.ruoyi.client.config.props.AVueProperties;
-import com.ruoyi.client.controller.AVueController;
 import com.ruoyi.client.handler.impl.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
  * AVue使用自动化配置
@@ -33,9 +33,12 @@ public class AVueAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(value = DynamicAnnotationHandler.class)
-    public DynamicAnnotationHandler dynamicAnnotationHandler() {
-        return new DynamicAnnotationHandler();
+    @ConditionalOnMissingBean(value = SupportNestingAnnotationHandler.class)
+    public SupportNestingAnnotationHandler dynamicAnnotationHandler() {
+        SupportNestingAnnotationHandler supportNestingAnnotationHandler = new SupportNestingAnnotationHandler();
+        supportNestingAnnotationHandler.addNestingAnnotation(AVueDynamic.class);
+        supportNestingAnnotationHandler.addNestingAnnotation(AVueTable.class);
+        return supportNestingAnnotationHandler;
     }
 
 
@@ -57,6 +60,7 @@ public class AVueAutoConfiguration {
         // 新注册的组件处理
         NewImportComponentsHandler newImportComponentsHandler = new NewImportComponentsHandler();
         newImportComponentsHandler.addRegisterComponent(AVueJson.class);
+        newImportComponentsHandler.addRegisterComponent(AVueTable.class);
         return newImportComponentsHandler;
     }
 

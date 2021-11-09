@@ -51,6 +51,20 @@ public @interface AVueDynamic {
     boolean row() default false;
 
     /**
+     * 比例 12 代表一行的一半，24则铺满整行
+     *
+     * @return
+     */
+    int span() default 12;
+
+    /**
+     * 宽度
+     *
+     * @return
+     */
+    String width() default "auto";
+
+    /**
      * 是否可以清空选项
      *
      * @return
@@ -111,6 +125,7 @@ public @interface AVueDynamic {
 
     /**
      * 表格页面是否展示
+     *
      * @return
      */
     boolean hide() default false;
@@ -232,6 +247,7 @@ public @interface AVueDynamic {
     AVueRule[] rules() default {};
 
     boolean required() default false;
+
     /**
      * 查询的单独校验规则
      *

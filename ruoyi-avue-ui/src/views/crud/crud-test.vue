@@ -57,7 +57,7 @@
         </span>
       </template>
 
-      <!-- 表单层 值组件展示层 -->
+      <!-- 表单层 特定属性 -->
       <template
         slot-scope="{ column,value,size,disabled,type}" v-for="item in option.registerFieldComponents"
         :slot="getSlotName(item)">
@@ -79,7 +79,15 @@
           </p>
       </span>
 
+        <span v-if="column.type === 'table'">
+          <el-tag>{{ value }}</el-tag>
+          <avue-crud ref="crud" :option="column.children" :data="value || []" @row-update="updateBefore"
+                     @row-del="delBefore"
+                     @search-change="listAfter">
+          </avue-crud>
+        </span>
       </template>
+
     </avue-crud>
 
     <avue-dialog ref="avueDialogForm" :dialog-option="dialogConfig.dialogOption"
@@ -310,6 +318,7 @@ export default {
         dialogDrag: true,
         registerFieldComponents: [
           "dataJson",
+          "nodeTableModel",
           "extJson"
         ],
         tableRowButtons: [
@@ -601,6 +610,115 @@ export default {
             "prop": "remark",
             "label": "备注",
             "type": "textarea"
+          }
+          , {
+            "prop": "nodeTableModel",
+            "label": "子表单测试",
+            "type": "table",
+            "row": true,
+            span: 24,
+            "children": {
+              "column": [
+                {
+                  "addDisplay": false,
+                  "prop": "id",
+                  "editDisabled": true,
+                  "label": "主键",
+                  "row": true,
+                  "type": "input"
+                },
+                {
+                  "prop": "configGroup",
+                  "rules": [
+                    {
+                      "message": "组名称要填咧",
+                      "type": "string",
+                      "required": true
+                    },
+                    {
+                      "min": 5,
+                      "max": 10,
+                      "message": "我跟你讲最小5个,最大10个.",
+                      "type": "string"
+                    }
+                  ],
+                  "label": "组名称",
+                  "row": true,
+                  "type": "input"
+                },
+                {
+                  "prop": "configName",
+                  "label": "配置名称",
+                  "row": true,
+                  "type": "input",
+                  "rules": [
+                    {
+                      "message": "配置名称 是必填项!",
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "dicData": [
+                    {
+                      "label": "无效",
+                      "value": -1
+                    },
+                    {
+                      "label": "有效",
+                      "value": 1
+                    }
+                  ],
+                  "prop": "configCode",
+                  "label": "配置值",
+                  "row": true,
+                  "type": "select",
+                  "props": {
+                    "label": "label",
+                    "value": "value"
+                  },
+                  "rules": [
+                    {
+                      "message": "配置值 是必填项!",
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "prop": "validDay",
+                  "label": "有效天数",
+                  "row": true,
+                  "type": "number",
+                  "rules": [
+                    {
+                      "message": "有效天数 是必填项!",
+                      "required": true
+                    }
+                  ]
+                },
+                {
+                  "dicData": [
+                    {
+                      "label": "无效",
+                      "value": -1
+                    },
+                    {
+                      "label": "有效",
+                      "value": 1
+                    }
+                  ],
+                  "prop": "status",
+                  "label": "状态",
+                  "row": true,
+                  "type": "switch",
+                  "value": 0,
+                  "props": {
+                    "label": "label",
+                    "value": "value"
+                  }
+                }
+              ]
+            }
           }
           // , {
           //   prop: "extJson",

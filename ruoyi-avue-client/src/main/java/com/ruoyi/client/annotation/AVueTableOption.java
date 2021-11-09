@@ -42,6 +42,20 @@ public @interface AVueTableOption {
     boolean addRowBtn() default false;
 
     /**
+     * 宽度大小
+     *
+     * @return
+     */
+    String width() default "auto";
+
+    /**
+     * 比例 12 代表一行的一半，24则铺满整行
+     *
+     * @return
+     */
+    int span() default 12;
+
+    /**
      * 表格列齐方式
      *
      * @return
@@ -92,6 +106,34 @@ public @interface AVueTableOption {
     boolean delBtn() default true;
 
     /**
+     * 行内编辑按钮
+     *
+     * @return
+     */
+    boolean viewBtn() default false;
+
+    /**
+     * 行内查看按钮
+     *
+     * @return
+     */
+    String viewBtnText() default "查看";
+
+    /**
+     * 清空按钮文案
+     *
+     * @return
+     */
+    String emptyBtnText() default "清空";
+
+    /**
+     * 表格行复制数据
+     *
+     * @return
+     */
+    boolean copyBtn() default false;
+
+    /**
      * 是否默认展开所有行，"expand"为true的时候有效
      *
      * @return
@@ -100,6 +142,7 @@ public @interface AVueTableOption {
 
     /**
      * 是否允许拖拽
+     *
      * @return
      */
     boolean dialogDrag() default false;

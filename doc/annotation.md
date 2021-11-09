@@ -161,3 +161,5 @@ page开头: 代表分页请求的返回结果编排。
 
 ##### @AVueUpload : 上传组件
 
+#### [@AVueTable](./components/AVueTable.md) : 表格，支持详情页展示。允许嵌套的属性
+

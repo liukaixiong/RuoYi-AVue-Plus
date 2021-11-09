@@ -68,4 +68,10 @@ public class AVueAnnotationHandlerTest extends TestCase {
         PropsModel parse = JsonParseUtils.parse(s, PropsModel.class);
         System.out.println(parse);
     }
+
+    @Test
+    public void testTable(){
+        Map<String, Map<String, Object>> parse = annotationHandler.parse(AVueTableModel.class);
+        System.out.println(JsonParseUtils.toJson(parse));
+    }
 }

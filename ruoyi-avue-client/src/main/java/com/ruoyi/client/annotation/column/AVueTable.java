@@ -6,7 +6,7 @@ import com.ruoyi.client.annotation.AVueRule;
 import java.lang.annotation.*;
 
 /**
- * 描述: 滑块属性
+ * 描述: dynamic属性 子表单
  *
  * @author liukx
  * @date 2021/8/16 18:51
@@ -14,13 +14,14 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface AVueSlider {
+public @interface AVueTable {
     /**
-     * 默认的类型
+     * 展现类型
      *
      * @return
      */
-    String type() default "slider";
+    String type() default "table";
+
     /**
      * 属性名称
      *
@@ -48,6 +49,20 @@ public @interface AVueSlider {
      * @return
      */
     boolean row() default false;
+
+    /**
+     * 比例 12 代表一行的一半，24则铺满整行
+     *
+     * @return
+     */
+    int span() default 12;
+
+    /**
+     * 宽度
+     *
+     * @return
+     */
+    String width() default "auto";
 
     /**
      * 是否可以清空选项
@@ -107,18 +122,16 @@ public @interface AVueSlider {
      * @return
      */
     boolean display() default false;
-    /* ********************************** 表单常用属性 ***************************************** */
+
     /**
-     * 比例 12 代表一行的一半，24则铺满整行
+     * 表格页面是否展示
      *
      * @return
      */
-    int span() default 12;
-    /**
-     * 表格页面是否展示
-     * @return
-     */
     boolean hide() default false;
+
+    /* ********************************** 表单常用属性 ***************************************** */
+
     /**
      * 表单新增时是否禁止
      *
@@ -152,7 +165,7 @@ public @interface AVueSlider {
      *
      * @return
      */
-    boolean editDisplay() default false;
+    boolean editDisplay() default true;
 
     /**
      * 表单编辑时是否为查看模式
@@ -169,60 +182,56 @@ public @interface AVueSlider {
     boolean sortable() default false;
 
     /* ********************************** ********** ******************************************/
-    /**
-     * 最小值
-     *
-     * @return
-     */
-    int min() default 0;
 
     /**
-     * 最大值
+     * 最小行/最小值
      *
      * @return
      */
-    int max() default 100;
+    int minRows() default 2;
 
     /**
-     * 步长
+     * 最大行/最大值
      *
      * @return
      */
-    int step() default 1;
+    int maxRows() default 4;
 
     /**
-     * 是否为范围选择
+     * 密码是否可见
      *
      * @return
      */
-    boolean range() default false;
+    boolean showPassword() default true;
 
     /**
-     * 是否显示输入框，仅在非范围选择时有效
+     * 是否显示输入字数统计
      *
      * @return
      */
-    boolean showInput() default false;
+    boolean showWordLimit() default true;
 
     /**
-     * 是否显示间断点
+     * 输入框头部图标
      *
      * @return
      */
-    boolean showStops() default false;
+    String prefixIcon() default "";
 
     /**
-     * 关闭时的背景色
+     * 输入框尾部图标
      *
      * @return
      */
-    String inactiveColor() default "#C0CCDA";
+    String suffixIcon() default "";
+
     /**
      * 是否作为搜索字段
      *
      * @return
      */
     boolean search() default false;
+
     /**
      * 拓展字段
      *
@@ -238,6 +247,7 @@ public @interface AVueSlider {
     AVueRule[] rules() default {};
 
     boolean required() default false;
+
     /**
      * 查询的单独校验规则
      *
