@@ -1,7 +1,8 @@
 
 
 **一款基于Java注解模版就能轻松完成复杂的增删改查的页面渲染以及事件交互，让后端小伙伴不在为了查询表单而头疼。**
-
+# 项目更换: https://github.com/liukaixiong/spring-avue-plus
+> 目前项目还是太重了,需要依赖的东西比较多,应用运行成本高,所以换了一个思路改用依赖的方式: https://github.com/liukaixiong/spring-avue-plus
 ## 功能介绍
 
 - 基于注解驱动前端页面的渲染
